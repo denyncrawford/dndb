@@ -18,9 +18,12 @@ DnDB works by instantiating collections stored in a specific file given by the u
 
 All the api methods are asynchronous by default, so they return promises, but it's also possible to pass a callback to them to work in a traditional mongo way.
 
-- [Instantiating a collection](#instatiating-a-collection)
+- [Instantiating a collection](/#instatiating-a-collection)
 - [API](#inserting-documents)
-   - [Inserting documents](#inserting-documents)
+   - [Inserting documents](#%EF%B8%8F-inserting-documents)
+   - [Finding documents](#-finding-documents)
+   - [Updating documents](#%EF%B8%8F-updating-documents)
+   - [Removing documents](#-removing-documents)
 
 ## ✔️ Instantiating the collection
 
