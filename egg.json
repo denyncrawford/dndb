@@ -9,6 +9,6 @@
     "./mod.js",
     "./datastore/*",
     "README.md",
-    "./deps.js"
+    "deps.js"
   ]
 }
