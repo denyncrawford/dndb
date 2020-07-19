@@ -191,7 +191,7 @@ Since it is a standard, the API will not be subject to drastic changes, but its 
 - [Paypal](https://paypal.me/DENYNCRAWFORD?locale.x=en_US).
 - BTC address: 39ik7oyYvmiMeTXTscY3bb9rUFMHdjf5pd
 
-📜 MIT License
+# 📜 MIT License
 
 Copyright (c) Crawford.
 
