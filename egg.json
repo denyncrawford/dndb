@@ -1,0 +1,14 @@
+{
+  "name": "dndb",
+  "description": "A Deno 🦕 persistent database for JS & TS",
+  "stable": true,
+  "entry": "./mod.js",
+  "version": "0.0.1",
+  "repository": "https://github.com/denyncrawford/dndb",
+  "files": [
+    "./mod.js",
+    "./datastore/*",
+    "README.md",
+    "./deps.js"
+  ]
+}
