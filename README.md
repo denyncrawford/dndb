@@ -147,7 +147,7 @@ To update documents DnDB exposes the method:
 
 - `update`
 
-The update method follows the same query rules as in find and findOne at first argument to get the update target document and as a second agument it receives the aggregation operators that modifies the matching fileds values ​​by following the aggregation rules.
+The update method follows the same query rules as in `find` and `findOne` at first argument to get the update target document and as a second agument it receives the aggregation operators that modifies the matching fileds values ​​by following the aggregation rules.
 
 > *Notice*: Se all rules and operators list [here](https://www.npmjs.com/package/mingo)
 
@@ -163,7 +163,7 @@ To remove documents DnDB exposes the method:
 
 - `remove`
 
-The remove method follows the same query rules as in find and findOne at first argument, it will remove all the documents that matches the query.
+The remove method follows the same query rules as in `find` and `findOne` at first argument, it will remove all the documents that matches the query.
 
 ```javascript
 db.remove({ _id: 'id2' }, {}, function (newdoc) {
@@ -185,7 +185,11 @@ db.remove({ _id: 'id2' }, {}, function (newdoc) {
 
 # :pushpin: This module is right now on Alpha, but the main API is pretty usable for production.
 
-Since it is a standard, the API will not be subject to drastic changes, but its internal working will do it, use with caution until the stable version.
+Since it is a standard, the API will not be subject to drastic changes, but its internal working will do, use with caution until the stable version.
+
+# Support this project by donating on:
+- [Paypal](https://paypal.me/DENYNCRAWFORD?locale.x=en_US).
+- BTC address: 39ik7oyYvmiMeTXTscY3bb9rUFMHdjf5pd
 
 📜 MIT License
 
