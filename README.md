@@ -36,7 +36,7 @@ All the api methods are asynchronous by default, so they return promises, but it
 ```javascript
 import Datastore from 'https://x.nest.land/dndb@0.0.2/mod.js'
 
-const db = new Datastore({ filname:"./database.db", autoload: true })
+const db = new Datastore({ filename:"./database.db", autoload: true })
 
 ```
 
@@ -102,7 +102,7 @@ To find documents DnDB exposes the methods:
 
 - `findOne`: Finds the first document that matches the query.
 
-  - returns: exact first matching objec
+  - returns: exact first matching object
 
 You can select documents based on field equality or use comparison operators (`$lt`, `$lte`, `$gt`, `$gte`, `$in`, `$nin`, `$ne`). You can also use logical operators `$or`, `$and`, `$not` and `$where`. See below for the syntax.
 
@@ -138,7 +138,7 @@ You can also use dot notation to find documents by deep querying.
 
 let docs = await db.find( { "fullname.lastname": "Crawford" })
 
-// Using dot notation to fin inside arrays:
+// Using dot notation to find inside arrays:
 
 let docs = await db.find( { "list.games.0": "Doom" })
 
