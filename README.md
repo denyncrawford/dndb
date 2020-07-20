@@ -10,7 +10,7 @@ Inspired by NeDB, DnDB is a powerful but minimalist database engine written on J
 
 ## 🧪 Quick test
 
-[Run the demo](/blob/master/demo/README.md) to test DnDB in a server environment.
+[Run the demo](/demo/README.md) to test DnDB in a server environment.
 
 ## 📦 Importing
 
@@ -219,4 +219,4 @@ Since it is a standard, the API will not be subject to drastic changes, but its 
 
 Copyright (c) Crawford.
 
-[Full license](/blob/master/LICENSE.md)
+[Full license](/LICENSE.md)
