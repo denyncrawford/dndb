@@ -3,7 +3,7 @@
   "description": "A Deno 🦕 persistent database for JS & TS",
   "stable": true,
   "entry": "./mod.js",
-  "version": "0.0.2",
+  "version": "0.0.21",
   "repository": "https://github.com/denyncrawford/dndb",
   "files": [
     "./mod.js",

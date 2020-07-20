@@ -106,7 +106,7 @@ You can use regular expressions in two ways: in basic querying in place of a str
 
 *Example of document querying:*
 
-> *Notice*: Se all rules and operators list [here](https://www.npmjs.com/package/mingo)
+> *Notice*: See all rules and operators list [here](https://www.npmjs.com/package/mingo)
 
 ```javascript
 
@@ -147,7 +147,7 @@ let docs = await db.find( { "list.games.0": "Doom" })
 
 You can give `find` and `findOne` an optional second argument, projections. The syntax is the same as MongoDB: `{ a: 1, b: 1 }` to return only the a and b fields, `{ a: 0, b: 0 }` to omit these two fields. You cannot use both modes at the time, except for _id which is by default always returned and which you can choose to omit. You can project on nested documents.
 
-> *Notice*: Se all rules and operators list [here](https://www.npmjs.com/package/mingo)
+> *Notice*: See all rules and operators list [here](https://www.npmjs.com/package/mingo)
 
 ```javascript
 
@@ -167,7 +167,7 @@ To update documents DnDB exposes the method:
 
 The update method follows the same query rules as in `find` and `findOne` at first argument to get the update target document and as a second agument it receives the aggregation operators that modifies the matching fileds values ​​by following the aggregation rules.
 
-> *Notice*: Se all rules and operators list [here](https://www.npmjs.com/package/mingo)
+> *Notice*: See all rules and operators list [here](https://www.npmjs.com/package/mingo)
 
 ```javascript
 db.update({ system: 'solar' }, { $set: { system: 'solar system' } }, (update) => {
@@ -191,7 +191,7 @@ db.remove({ _id: 'id2' }, {}, function (newdoc) {
 });
 ```
 
-> *Notice*: If you want to unset a  value from the document you must use update with the $unset operator. Se all rules and operators list [here](https://www.npmjs.com/package/mingo)
+> *Notice*: If you want to unset a  value from the document you must use update with the $unset operator. See all rules and operators list [here](https://www.npmjs.com/package/mingo)
 
 # :memo: TO DO
 
