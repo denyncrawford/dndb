@@ -1,6 +1,6 @@
 # DnDB
 
-[![nest badge](https://nest.land/badge.svg)](https://nest.land/package/dndb) [![HitCount](http://hits.dwyl.com/denyncrawford/dndb.svg)](http://hits.dwyl.com/denyncrawford/dndb)
+[![nest badge](https://nest.land/badge.svg)](https://nest.land/package/dndb) ![Hits](https://hitcounter.pythonanywhere.com/count/tag.svg?url=https%3A%2F%2Fgithub.com%2Fdenyncrawford%2Fdndb)
 
 DnDB is a javascript persistent database written for deno and available for typescript.
 
