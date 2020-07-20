@@ -8,6 +8,10 @@ Inspired by NeDB, DnDB is a powerful but minimalist database engine written on J
 
 > *Notice*: This project is under development, so it is subject to future improvements and changes.
 
+## 🧪 Quick test
+
+[Run the demo](/blob/master/demo/README.md) to test DnDB in a server environment.
+
 ## 📦 Importing
 
 ```javascript
