@@ -1,5 +1,5 @@
 
-import { Datastore } from '../datastore/mod.js';
+import Datastore from 'https://x.nest.land/dndb@0.0.2/mod.js'
 import { resolve } from 'https://deno.land/std/path/mod.ts';
 import { __ } from 'https://deno.land/x/dirname/mod.ts';
 const { __dirname } = __(import.meta)

@@ -11,7 +11,7 @@ Inspired by NeDB, DnDB is a powerful but minimalist database engine written on J
 ## 📦 Importing
 
 ```javascript
-import Datastore from 'https://x.nest.land/dndb@0.0.1/mod.js'
+import Datastore from 'https://x.nest.land/dndb@0.0.2/mod.js'
 ```
 
 ## 📖 Usage
@@ -30,7 +30,7 @@ All the api methods are asynchronous by default, so they return promises, but it
 ## ✔️ Instantiating the collection
 
 ```javascript
-import Datastore from 'https://x.nest.land/dndb@0.0.1/mod.js'
+import Datastore from 'https://x.nest.land/dndb@0.0.2/mod.js'
 
 const db = new Datastore({ filname:"./database.db", autoload: true })
 
@@ -66,6 +66,12 @@ db.insert(obj, (insertion) => {
 
 ```
 
+To insert documents DnDB exposes the method:
+
+- `insert`:
+ 
+ - returns: Array/object with the inserted documents.
+
 The insert method receives two arguments: 
 
 - `data`: Json data to insert
@@ -88,7 +94,11 @@ To find documents DnDB exposes the methods:
 
 - `find`: Finds all the documents that match the query.
 
-- `findone`: Finds the first document that matches the query.
+  - returns: array of matching documents
+
+- `findOne`: Finds the first document that matches the query.
+
+  - returns: exact first matching objec
 
 You can select documents based on field equality or use comparison operators (`$lt`, `$lte`, `$gt`, `$gte`, `$in`, `$nin`, `$ne`). You can also use logical operators `$or`, `$and`, `$not` and `$where`. See below for the syntax.
 
@@ -107,6 +117,10 @@ db.find({name:"Denyn"}, {}, (docs) => {
 // or
 
 let docs = await db.find({name:"Denyn"})
+
+// Finding unique document
+
+let docs = await db.findOne({username:"denyncrawford"})
 
 // Deep querying syntax:
 
@@ -148,6 +162,8 @@ db.find({ planet: 'Mars' }, { planet: 1, system: 1 }, function (docs) {
 To update documents DnDB exposes the method:
 
 - `update`
+  
+  - returns: array with the new updated collection
 
 The update method follows the same query rules as in `find` and `findOne` at first argument to get the update target document and as a second agument it receives the aggregation operators that modifies the matching fileds values ​​by following the aggregation rules.
 
@@ -164,6 +180,8 @@ db.update({ system: 'solar' }, { $set: { system: 'solar system' } }, (update) =>
 To remove documents DnDB exposes the method:
 
 - `remove`
+
+  - returns: array with the new updated collection
 
 The remove method follows the same query rules as in `find` and `findOne` at first argument, it will remove all the documents that matches the query.
 
