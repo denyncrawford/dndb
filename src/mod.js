@@ -1,4 +1,3 @@
-
 import { resolve } from 'https://deno.land/std/path/mod.ts';
 import { _find, _insert, _findOne, _update, _remove } from './methods/mod.js';
 import { init } from './storage.js';

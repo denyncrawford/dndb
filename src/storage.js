@@ -1,4 +1,3 @@
-
 const encoder = new TextEncoder();
 const decoder = new TextDecoder('utf-8');
 import { existsSync } from "https://deno.land/std/fs/mod.ts";
@@ -62,9 +61,7 @@ const serialize = async (data) => {
 const deserialize = async (data) => {
   let output = ``
   data.forEach(r => {
-    output += 
-    `${JSON.stringify(r)}
-`
+    output += JSON.stringify(r)
   });
   return output;
 }

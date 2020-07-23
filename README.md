@@ -2,7 +2,7 @@
 
 [![nest badge](https://nest.land/badge.svg)](https://nest.land/package/dndb) ![Hits](https://hitcounter.pythonanywhere.com/count/tag.svg?url=https%3A%2F%2Fgithub.com%2Fdenyncrawford%2Fdndb)
 
-DnDB is a javascript persistent database written for deno and available for typescript.
+DnDB is a javascript persistent database written for deno and available for Typescript.
 
 Inspired by NeDB, DnDB is a powerful but minimalist database engine written on JS that uses the mongo query API to edit and find data, making it 100% exportable to a mongojs environment.
 
