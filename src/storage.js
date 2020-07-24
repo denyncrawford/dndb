@@ -1,4 +1,3 @@
-
 const encoder = new TextEncoder();
 const decoder = new TextDecoder('utf-8');
 import { existsSync } from "https://deno.land/std/fs/mod.ts";
@@ -7,14 +6,14 @@ import { existsSync } from "https://deno.land/std/fs/mod.ts";
 
 const init = async (filename) => {
   if (!existsSync(filename)) {
-    await Deno.create(filename);
+    await Deno.writeFile(filename, encoder.encode('{"x":[]}'))
   }
 }
 
 // Writes and commits the datastore
 
 const writeFile = async (filename, data) => {
-  await ensureLoad(filename);
+  await ensureExists(filename);
   data = await deserialize(data)
   data = encoder.encode(data);
   await Deno.writeFile(`${filename}~`, data);
@@ -27,8 +26,8 @@ const writeFile = async (filename, data) => {
 // Reads the datastore
 
 const readFile = async (filename) => {
-  await ensureLoad(filename);
-  await ensureCommit(filename);
+  await ensureCommit(filename)
+  await ensureExists(filename);
   let data = await Deno.readFile(filename)
   data = decoder.decode(data);
   data = await serialize(data);
@@ -42,31 +41,26 @@ const ensureCommit = async (filename) => {
   return
 }
 
-// Ensures data load
+// Ensures data exists
 
-const ensureLoad = async (filename) => {
+const ensureExists = async (filename) => {
   if (!existsSync(filename)) await check(() => existsSync(filename), 100)
   return
 }
 
+
 // Serialize the data
 
-const serialize = async (data) => {
-  return data.split("\n").filter(r => r).map(r => {
-    return JSON.parse(r)
-  }) || []
+const serialize = async (content) => {
+  return JSON.parse(content).x
 }
 
 // Deserilizes the data
 
-const deserialize = async (data) => {
-  let output = ``
-  data.forEach(r => {
-    output += 
-    `${JSON.stringify(r)}
-`
-  });
-  return output;
+const deserialize = async (x) => {
+    return JSON.stringify({
+        x
+    })
 }
 
 const check = (condition, checkTime) => {

@@ -1,13 +1,13 @@
-import { mingo } from '../../deps.js';
+import { mingo } from '../../deps.ts';
 import { readFile, writeFile } from '../storage.js';
 
 export default async (filename ,query, operators, projection) => {
-  let file = await readFile(filename);
+  let fileContent = await readFile(filename);
   let queryMaker = new mingo.Query(query, projection);
-  let results = queryMaker.find(file, projection).all()
+  let results = queryMaker.find(fileContent, projection).all()
   operators = Array.isArray(operators) ? operators : [operators]
   let update = mingo.aggregate(results, operators)
-  await writeFile(filename, merge(file, update))
+  await writeFile(filename, merge(fileContent, update))
   return update;
 }
 
