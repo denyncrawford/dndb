@@ -1,4 +1,4 @@
-import Datastore from 'https://x.nest.land/dndb@0.0.2/mod.js'
+import Datastore from 'https://x.nest.land/dndb@0.1.0/mod.ts'
 import { Application } from "https://deno.land/x/abc@v1/mod.ts";
 
 const app = new Application();

@@ -1,3 +1,3 @@
-import { Datastore } from "./src/mod.js";
+import { Datastore } from "./src/mod.ts";
 
 export default Datastore;

@@ -15,7 +15,7 @@ Inspired by NeDB, DnDB is a powerful but minimalist database engine written on J
 ## 📦 Importing
 
 ```javascript
-import Datastore from 'https://x.nest.land/dndb@0.0.2/mod.js'
+import Datastore from 'https://x.nest.land/dndb@0.1.0/mod.ts'
 ```
 
 ## 📖 Usage
@@ -34,7 +34,7 @@ All the api methods are asynchronous by default, so they return promises, but it
 ## ✔️ Instantiating the collection
 
 ```javascript
-import Datastore from 'https://x.nest.land/dndb@0.0.2/mod.js'
+import Datastore from 'https://x.nest.land/dndb@0.1.0/mod.ts'
 
 const db = new Datastore({ filename:"./database.db", autoload: true })
 
@@ -173,9 +173,13 @@ The update method follows the same query rules as in `find` and `findOne` at fir
 > *Notice*: See all rules and operators list [here](https://www.npmjs.com/package/mingo)
 
 ```javascript
-db.update({ system: 'solar' }, { $set: { system: 'solar system' } }, (update) => {
+db.update({ name: 'denyn' }, { $set: { pet: 'Boots' } }, (update) => {
   // ...foo(update)
 });
+
+// OR 
+
+let update = await db.update({ name: 'denyn' }, { $set: { pet: 'Boots' } })
 ```
 
 ## ❌ Removing documents
@@ -189,14 +193,18 @@ To remove documents DnDB exposes the method:
 The remove method follows the same query rules as in `find` and `findOne` at first argument, it will remove all the documents that matches the query.
 
 ```javascript
-db.remove({ _id: 'id2' }, {}, function (newdoc) {
+db.remove({ _id: 'id2' }, function (newdoc) {
   // ...foo(newDoc)
 });
+
+//OR
+
+await remove({ _id: 'id2' })
 ```
 
 > *Notice*: If you want to unset a  value from the document you must use update with the $unset operator. See all rules and operators list [here](https://www.npmjs.com/package/mingo)
 
-# :memo: TO DO
+# 📝 TO DO
 
 - Event hooks on all the api usage.
 - Count method
@@ -204,13 +212,14 @@ db.remove({ _id: 'id2' }, {}, function (newdoc) {
 - Create file integrity checker
 - Prevent updating inmutable data
 - Error handlers.
+- Use write/read streams to improve resources usage.
 - SORT, SKIP, and LIMIT modifier methods support.
 
-# :pushpin: This module is right now on Alpha, but the main API is pretty usable for production.
+# 📌 This module is right now on Alpha, but the main API is pretty usable for production.
 
 Since it is a standard, the API will not be subject to drastic changes, but its internal working will do, use with caution until the stable version.
 
-# Support this project by donating on:
+# 👊 Support this project by donating on:
 - [Paypal](https://paypal.me/DENYNCRAWFORD?locale.x=en_US).
 - BTC address: 39ik7oyYvmiMeTXTscY3bb9rUFMHdjf5pd
 
