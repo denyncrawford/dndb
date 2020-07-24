@@ -60,14 +60,13 @@ let obj = {
   lastname: 'crawford'
 }
 
-let insertion = db.insert(obj);
+let insertion = await db.insert(obj)
 
 // OR
 
 db.insert(obj, (insertion) => {
   // ...foo(insetion)
 })
-
 ```
 
 To insert documents DnDB exposes the method:

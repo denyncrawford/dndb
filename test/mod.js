@@ -1,33 +1,45 @@
-
-import { Datastore } from "../src/mod.js";
+import { Datastore } from "../src/mod.ts";
 import { resolve } from 'https://deno.land/std/path/mod.ts';
 import { __ } from 'https://deno.land/x/dirname/mod.ts';
 const { __dirname } = __(import.meta)
 
-// Creating datastore collection
+let db 
 
-const db = new Datastore({filename: resolve(__dirname, "./db.db"), autoload:true})
+Deno.test('Creating datastore collection', () => {
+    return new Promise((res) => {
+        db = new Datastore({ autoload: true, onLoad: () => {
+            res()
+        } })
+    })
 
-// Inserting Document
+})
 
-await db.insert({name:"denyn"});
+Deno.test('Inserting Document', async () => {
+    await db.insert({ name: 'denyn' })
+})
 
-// Updating Documents
+Deno.test('Updating Documents', async () => {
+    await db.update({ 
+        name: 'denyn'
+    },{
+        $set: {
+            name: 'Denyn'
+        }
+    })
+})
 
-let update = await db.update({name:"denyn"},{$set: {name:"Denyn"}});
+Deno.test('Finding with callback', async () => {
+    return new Promise((res) => {
+        db.find({ name: 'Denyn' }, {}, docs => {
+            res()
+        });
+    })
+})
 
-// Finding with callback
+Deno.test('Finding with await', async () => {
+    await db.find({ name: 'Denyn'})
+})
 
-db.find({name:"Denyn"}, {}, (doc) => {
-  console.log(doc);
-});
-
-// Removing documents
-
-let remove = await db.remove({_id: "3bddda30-c9da-11ea-a831-89bf3cffb9a3"})
-
-// Finding with await
-
-let data = await db.find({name:"Denyn"})
-
-console.log(update,remove,data);
+Deno.test('Removing documents', async () => {
+    await db.remove({ name: 'denyn'})
+})
