@@ -26,6 +26,7 @@ const writeFile = async (filename, data) => {
 // Reads the datastore
 
 const readFile = async (filename) => {
+  await ensureCommit(filename)
   await ensureExists(filename);
   let data = await Deno.readFile(filename)
   data = decoder.decode(data);
@@ -34,6 +35,13 @@ const readFile = async (filename) => {
 }
 
 // Ensures data commitment
+
+const ensureCommit = async (filename) => {
+  if (existsSync(`${filename}~`)) await check(() => !existsSync(`${filename}~`), 100)
+  return
+}
+
+// Ensures data exists
 
 const ensureExists = async (filename) => {
   if (!existsSync(filename)) await check(() => existsSync(filename), 100)
