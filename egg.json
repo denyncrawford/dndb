@@ -3,14 +3,15 @@
   "description": "A Deno 🦕 persistent database for JS & TS",
   "stable": true,
   "entry": "./mod.ts",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "repository": "https://github.com/denyncrawford/dndb",
   "files": [
-    "./mod.js",
-    "./datastore/*",
-    "./datastore/methods/*",
+    "./mod.ts",
+    "./src/*",
+    "./src/methods/*",
+    "./src/types/*",
     "./demo/*",
     "README.md",
-    "deps.js"
+    "deps.ts"
   ]
 }
