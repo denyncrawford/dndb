@@ -8,8 +8,12 @@ timed(async () => {
 },"Insert");
 
 timed(async () => {
-  await db.findOne({name:"Denyn"})
+  let docs = await db.find({name:"Denyn"})
 }, "Find" )
+
+timed(async () => {
+  let docs = await db.findOne({name:"Denyn"})
+}, "Find One" )
 
 timed(async () => {
   await db.update({name:"Denyn"},{$set:{name:"Juan"}})

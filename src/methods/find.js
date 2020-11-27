@@ -12,11 +12,9 @@ export default async (filename, query, projection) => {
   let stream = new ReadFileStream(filename);
   const queryMaker = new mingo.Query(query, projection);
   let found = [];
-  let content = [];
   stream.on('document', obj => {
-    content[0] = obj;
-    let result = queryMaker.find(content, projection).all();
-    found = found.concat(result)
+    if (queryMaker.test(obj))
+    found.push(obj)
   })
   return new Promise((resolve, reject) => {
     stream.on('end', () => {

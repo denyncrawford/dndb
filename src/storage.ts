@@ -15,7 +15,6 @@ const init = async (filename:string) => {
 // Writes and commits the datastore
 
 const writeFile = async (filename:string, data:object) => {
-  await ensureCommit(filename)
   await ensureExists(filename);
   let doc:any = data = encoder.encode(JSON.stringify(data)+"\n");
   await Deno.writeFile(filename, doc, {append: true});
@@ -24,7 +23,6 @@ const writeFile = async (filename:string, data:object) => {
 // Updates the whole datastore
 
 const updateFile = async (filename:string, data:any) => {
-  await ensureCommit(filename)
   await ensureExists(filename);
   let load:string = await deserialize(data)
   let target:any = encoder.encode(load);
@@ -34,7 +32,6 @@ const updateFile = async (filename:string, data:any) => {
 // Reads the whole datastore
 
 const readFile = async (filename:string) => {
-  await ensureCommit(filename)
   await ensureExists(filename);
   let data:any = await Deno.readFile(filename)
   data = decoder.decode(data);  
@@ -60,13 +57,6 @@ class ReadFileStream extends EventEmitter {
     this.emit('end','terminated')
     file.close();
   }
-}
-
-// Ensures data commitment if a temp file exist.
-
-const ensureCommit = async (filename:string) => {
-  if (existsSync(`${filename}~`)) await check(() => !existsSync(`${filename}~`), 100)
-  return
 }
 
 // Ensures data if file doesn't exists

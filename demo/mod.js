@@ -1,9 +1,20 @@
-import Datastore from 'https://x.nest.land/dndb@0.1.0/mod.ts'
+import Datastore from '../mod.ts'
 import { Application } from "https://deno.land/x/abc@v1/mod.ts";
 
 const app = new Application();
 
 const db = new Datastore({filename: "./database.db", autoload:true})
+
+app.get("/all", async ctx => {
+  let dbResponse = await db.find({})
+  return JSON.stringify(dbResponse, null, 2);
+})
+
+app.get("/all/:match", async ctx => {
+  const { match } = ctx.params;
+  let dbResponse = await db.find({username: match})
+  return JSON.stringify(dbResponse, null, 2);
+})
 
 
 app.get("/:username", async (ctx) => {
