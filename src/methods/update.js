@@ -1,5 +1,5 @@
 import { mingo } from '../../deps.ts';
-import { readFile, writeFile } from '../storage.js';
+import { readFile, updateFile } from '../storage.ts';
 
 export default async (filename ,query, operators, projection) => {
   let fileContent = await readFile(filename);
@@ -7,7 +7,7 @@ export default async (filename ,query, operators, projection) => {
   let results = queryMaker.find(fileContent, projection).all()
   operators = Array.isArray(operators) ? operators : [operators]
   let update = mingo.aggregate(results, operators)
-  await writeFile(filename, merge(fileContent, update))
+  await updateFile(filename, merge(fileContent, update))
   return update;
 }
 

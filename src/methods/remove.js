@@ -1,9 +1,9 @@
 import { mingo } from '../../deps.ts';
-import { readFile, writeFile } from '../storage.js';
+import { readFile, updateFile } from '../storage.ts';
 
 export default async (filename, query) => {
   let fileContent = await readFile(filename);
   let remover = new mingo.remove(fileContent, query);
-  await writeFile(filename, remover)
+  await updateFile(filename, remover)
   return remover
 }

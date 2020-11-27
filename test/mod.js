@@ -1,13 +1,11 @@
 import { Datastore } from "../src/mod.ts";
 import { resolve } from 'https://deno.land/std/path/mod.ts';
-import { __ } from 'https://deno.land/x/dirname/mod.ts';
-const { __dirname } = __(import.meta)
 
 let db 
 
 Deno.test('Creating datastore collection', () => {
     return new Promise((res) => {
-        db = new Datastore({ autoload: true, onLoad: () => {
+        db = new Datastore({ filename: "./db.db", autoload: true, onLoad: () => {
             res()
         } })
     })
