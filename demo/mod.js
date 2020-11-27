@@ -29,6 +29,30 @@ app.post("/:username", async (ctx) => {
   return JSON.stringify(doc, null, 2)
 })
 
+app.delete("/:username", async (ctx) => {
+  const { username } = ctx.params;
+  let doc = await db.removeOne({username})
+  return JSON.stringify(doc, null, 2)
+})
+
+app.delete("/all/:username", async (ctx) => {
+  const { username } = ctx.params;
+  let doc = await db.remove({username})
+  return JSON.stringify(doc, null, 2)
+})
+
+app.put("/:username/:newUsername", async (ctx) => {
+  const { username, newUsername } = ctx.params;
+  let doc = await db.updateOne({username}, {$set: {username:newUsername}})
+  return JSON.stringify(doc, null, 2)
+})
+
+app.put("/all/:username/:newUsername", async (ctx) => {
+  const { username, newUsername } = ctx.params;
+  let doc = await db.update({username}, {$set: {username:newUsername}})
+  return JSON.stringify(doc, null, 2)
+})
+
 app.start({ port: 3000 });
 
 console.log("http://localhost:3000");

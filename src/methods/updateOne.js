@@ -9,7 +9,7 @@ export default async (filename ,query, operators, projection) => {
   operators = Array.isArray(operators) ? operators : [operators]
   return new Promise((resolve, reject) => {
     stream.on('document', obj => {
-      if (queryMaker.test(obj)) results.push(obj)
+      if (queryMaker.test(obj) && results.length == 0) results.push(obj)
       collection.push(obj)
     })
     stream.on('end', async () => {

@@ -38,6 +38,6 @@ Deno.test('Finding with await', async () => {
     await db.find({ name: 'Denyn'})
 })
 
-Deno.test('Removing documents', async () => {
-    await db.remove({ name: 'denyn'})
-})
+// Deno.test('Removing documents', async () => {
+//     await db.remove({ name: 'denyn'})
+// })

@@ -77,7 +77,7 @@ const serialize = async (content:string) => {
 // Deserialize the data
 
 const deserialize = async (data:any) => {  
-  let output = data.filter((doc:any) => doc.length).map((doc:object) => JSON.stringify(doc)).join('\n')
+  let output = data.map((doc:object) => JSON.stringify(doc)).join('\n')
   return output.length ? output +"\n" : "";
 }
 
