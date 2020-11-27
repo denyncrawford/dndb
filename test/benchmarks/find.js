@@ -20,6 +20,15 @@ timed(async () => {
 }, "Update")
 
 timed(async () => {
+  await db.updateOne({name:"Denyn"},{$set:{name:"Juan"}})
+}, "Update One")
+
+timed(async () => {
+  await db.removeOne({name:"Juan"})
+}, "Delete One");
+
+timed(async () => {
   await db.remove({name:"Juan"})
 }, "Delete");
+
 
