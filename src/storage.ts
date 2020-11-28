@@ -1,7 +1,7 @@
 const encoder = new TextEncoder();
 const decoder = new TextDecoder('utf-8');
 import { EventEmitter } from "https://deno.land/std/node/events.ts";
-import { BufReader, BufWriter } from "https://deno.land/std/io/bufio.ts";
+import { BufReader } from "https://deno.land/std/io/bufio.ts";
 import { existsSync } from "https://deno.land/std/fs/mod.ts";
 
 // Ensure datastore initialization on first load

@@ -10,7 +10,7 @@ Inspired by NeDB, DnDB is a powerful but minimalist database engine written on J
 
 ## Why DnDB?
 
-DnDB is an incredibly fast and powerful data store. All methods are streamed and buffered to optimize data reading and writing. DnDB is not only faster, but it consumes less resources (RAM) since only a small portion of the data stream is stored in memory by the buffer.
+DnDB is an incredibly fast and powerful data store. All methods are streamed and buffered to optimize data reading/writing. DnDB is not only faster, but it consumes less resources (RAM) since only a small portion of the data stream is stored in memory by the buffer, enabling optimal performance on large data collections.
 
 ## 🧪 Quick test
 
@@ -19,7 +19,7 @@ DnDB is an incredibly fast and powerful data store. All methods are streamed and
 ## 📦 Importing
 
 ```javascript
-import Datastore from 'https://x.nest.land/dndb@0.2.0/mod.ts'
+import Datastore from 'https://x.nest.land/dndb@0.2.1/mod.ts'
 ```
 
 ## 📖 Usage
@@ -38,7 +38,7 @@ All the api methods are asynchronous by default, so they return promises, but it
 ## ✔️ Instantiating the collection
 
 ```javascript
-import Datastore from 'https://x.nest.land/dndb@0.2.0/mod.ts'
+import Datastore from 'https://x.nest.land/dndb@0.2.1/mod.ts'
 
 const db = new Datastore({ filename:"./database.db", autoload: true })
 
@@ -172,6 +172,10 @@ To update documents DnDB exposes the method:
   
   - returns: array with the new updated collection
 
+- `updateOne`
+
+  - returns: object with the new updated document.
+
 The update method follows the same query rules as in `find` and `findOne` at first argument to get the update target document and as a second agument it receives the aggregation operators that modifies the matching fileds values ​​by following the aggregation rules.
 
 > *Notice*: See all rules and operators list [here](https://www.npmjs.com/package/mingo)
@@ -192,7 +196,11 @@ To remove documents DnDB exposes the method:
 
 - `remove`
 
-  - returns: array with the new updated collection
+  - returns: array with the new removed collection
+
+- `removeOne`
+
+  - returns: object with the new removed document
 
 The remove method follows the same query rules as in `find` and `findOne` at first argument, it will remove all the documents that matches the query.
 
@@ -210,7 +218,7 @@ await remove({ _id: 'id2' })
 
 # 📝 TO DO
 
-- Event hooks on all the api usage.
+- Event hooks on all the api usage
 - Count method
 - Improve documentation
 - Prevent updating inmutable data
