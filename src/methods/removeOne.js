@@ -1,20 +1,24 @@
 import { mingo } from '../../deps.ts';
-import { updateFile, ReadFileStream} from '../storage.ts';
+import { ReadFileStream, WriteFileStream } from '../storage.ts';
 
-export default async (filename, query) => {
-  let stream = new ReadFileStream(filename);
-  const queryMaker = new mingo.Query(query, {});
+export default async (filename ,query, operators, projection) => {
+  const readStream = new ReadFileStream(filename);
+  const writeStream = new WriteFileStream(filename);
+  const queryMaker = new mingo.Query(query, projection);
   let removed = [];
-  let update = [];
+  operators = Array.isArray(operators) ? operators : [operators]
   return new Promise((resolve, reject) => {
-    stream.on('document', async obj => {
-      if (queryMaker.test(obj) && !removed.length) removed.push(obj);
-      update.push(obj) 
-      if (removed.length && obj._id == removed[0]._id) update.pop()
+    readStream.on('document', obj => {
+      if (queryMaker.test(obj) && removed.length == 0) 
+        removed.push(obj)
+      else if (obj._id !== removed[0]?._id)
+        writeStream.emit("write", obj)
     })
-    stream.on('end', async () => {
-      await updateFile(filename, update)
-      return resolve(removed[0] || null);
+    readStream.on("end", () => {
+      writeStream.emit("end");
+    })
+    writeStream.on("close", () => {
+      return resolve(removed[0] || null)
     })
   })
 }

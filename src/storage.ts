@@ -1,7 +1,7 @@
 const encoder = new TextEncoder();
 const decoder = new TextDecoder('utf-8');
 import { EventEmitter } from "https://deno.land/std/node/events.ts";
-import { BufReader } from "https://deno.land/std/io/bufio.ts";
+import { BufReader, BufWriter } from "https://deno.land/std/io/bufio.ts";
 import { existsSync } from "https://deno.land/std/fs/mod.ts";
 
 // Ensure datastore initialization on first load
@@ -12,7 +12,31 @@ const init = async (filename:string) => {
   }
 }
 
-// Writes and commits the datastore
+//Write file line by line on a stream
+
+class WriteFileStream extends EventEmitter {
+  constructor(private filename: string) {
+    super();
+    this.stream();
+  }
+  async stream() {
+    const updatedFile = `${this.filename}.updated`;
+    await ensureCommit(updatedFile)
+    await ensureExists(this.filename)
+    const file = Deno.openSync(updatedFile, { write: true, create: true });
+    this.on("write", (data) => {
+      let uit8 = encoder.encode(JSON.stringify(data)+"\n")
+      Deno.writeAllSync(file, uit8)
+    })
+    this.on('end', async () => {
+      file.close()
+      await Deno.rename(updatedFile, this.filename)
+      this.emit("close")
+    })
+  }
+}
+
+// Writes line by line and commits the datastore
 
 const writeFile = async (filename:string, data:object) => {
   await ensureExists(filename);
@@ -51,7 +75,7 @@ class ReadFileStream extends EventEmitter {
     const bufReader = new BufReader(file);
     let line: any;
     while ((line = await bufReader.readString('\n')) != null) {
-      let doc: object = JSON.parse(line)
+      let doc: object = JSON.parse(line);
       this.emit('document', doc)
     }
     this.emit('end','terminated')
@@ -63,6 +87,13 @@ class ReadFileStream extends EventEmitter {
 
 const ensureExists = async (filename:string) => {
   if (!existsSync(filename)) await check(() => existsSync(filename), 100)
+  return
+}
+
+// Esures the temp file is meged
+
+const ensureCommit = async (filename:string) => {
+  if (existsSync(filename)) await check(() => existsSync(filename), 100)
   return
 }
 
@@ -100,5 +131,6 @@ export {
   writeFile,
   updateFile,
   ReadFileStream,
+  WriteFileStream,
   init
 }
