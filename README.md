@@ -8,6 +8,10 @@ Inspired by NeDB, DnDB is a powerful but minimalist database engine written on J
 
 > *Notice*: This project is under development, so it is subject to future improvements and changes.
 
+## Why DnDB?
+
+DnDB is an incredibly fast and powerful data store. All methods are streamed and buffered to optimize data reading and writing. DnDB is not only faster, but it consumes less resources (RAM) since only a small portion of the data stream is stored in memory by the buffer.
+
 ## 🧪 Quick test
 
 [Run the demo](/demo/README.md) to test DnDB in a server environment.
@@ -15,7 +19,7 @@ Inspired by NeDB, DnDB is a powerful but minimalist database engine written on J
 ## 📦 Importing
 
 ```javascript
-import Datastore from 'https://x.nest.land/dndb@0.1.0/mod.ts'
+import Datastore from 'https://x.nest.land/dndb@0.2.0/mod.ts'
 ```
 
 ## 📖 Usage
@@ -34,7 +38,7 @@ All the api methods are asynchronous by default, so they return promises, but it
 ## ✔️ Instantiating the collection
 
 ```javascript
-import Datastore from 'https://x.nest.land/dndb@0.1.0/mod.ts'
+import Datastore from 'https://x.nest.land/dndb@0.2.0/mod.ts'
 
 const db = new Datastore({ filename:"./database.db", autoload: true })
 
@@ -103,7 +107,7 @@ To find documents DnDB exposes the methods:
 
   - returns: exact first matching object
 
-You can select documents based on field equality or use comparison operators (`$lt`, `$lte`, `$gt`, `$gte`, `$in`, `$nin`, `$ne`). You can also use logical operators `$or`, `$and`, `$not` and `$where`. See below for the syntax.
+You can select documents based on field equality or use comparison operators (`$lt`, `$lte`, `$gt`, `$gte`, `$in`, `$nin`, `$neq`). You can also use logical operators `$or`, `$and`, `$not` and `$eq`. See below for the syntax.
 
 You can use regular expressions in two ways: in basic querying in place of a string, or with the $regex operator.
 
@@ -209,10 +213,8 @@ await remove({ _id: 'id2' })
 - Event hooks on all the api usage.
 - Count method
 - Improve documentation
-- Create file integrity checker
 - Prevent updating inmutable data
 - Error handlers.
-- Use write/read streams to improve resources usage.
 - SORT, SKIP, and LIMIT modifier methods support.
 
 # 📌 This module is right now on Alpha, but the main API is pretty usable for production.

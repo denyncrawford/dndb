@@ -24,7 +24,7 @@ app.get("/all/:match", async ctx => {
 
 app.get("/:username", async (ctx) => {
   const { username } = ctx.params;
-  let dbResponse = await db.findOne({username})
+  let dbResponse = await db.findOne({username}, {username:0})
   return JSON.stringify(dbResponse, null, 2);
 });
 
@@ -32,7 +32,7 @@ app.get("/:username", async (ctx) => {
 
 app.post("/:username", async (ctx) => {
   const { username } = ctx.params;
-  let doc = await db.insert({username})
+  let doc = await db.insert({username, name:username})
   return JSON.stringify(doc, null, 2)
 })
 

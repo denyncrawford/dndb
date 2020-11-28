@@ -44,26 +44,7 @@ const writeFile = async (filename:string, data:object) => {
   await Deno.writeFile(filename, doc, {append: true});
 }
 
-// Updates the whole datastore
-
-const updateFile = async (filename:string, data:any) => {
-  await ensureExists(filename);
-  let load:string = await deserialize(data)
-  let target:any = encoder.encode(load);
-  await Deno.writeFile(filename, target);
-}
-
-// Reads the whole datastore
-
-const readFile = async (filename:string) => {
-  await ensureExists(filename);
-  let data:any = await Deno.readFile(filename)
-  data = decoder.decode(data);  
-  data = await serialize(data);
-  return data
-}
-
-// Reads the datastore by chunks
+// Reads the datastore by streaming and buffering chunks
 
 class ReadFileStream extends EventEmitter {
   constructor(private filename: string) {
@@ -78,7 +59,7 @@ class ReadFileStream extends EventEmitter {
       let doc: object = JSON.parse(line);
       this.emit('document', doc)
     }
-    this.emit('end','terminated')
+    this.emit('end')
     file.close();
   }
 }
@@ -90,26 +71,11 @@ const ensureExists = async (filename:string) => {
   return
 }
 
-// Esures the temp file is meged
+// Esures the temp file is merged
 
 const ensureCommit = async (filename:string) => {
   if (existsSync(filename)) await check(() => existsSync(filename), 100)
   return
-}
-
-
-// Serialize the data
-
-const serialize = async (content:string) => {
-  let collection:any = content.split('\n');
-  return collection.filter((x:string) => x).map((doc:string) => JSON.parse(doc));
-}
-
-// Deserialize the data
-
-const deserialize = async (data:any) => {  
-  let output = data.map((doc:object) => JSON.stringify(doc)).join('\n')
-  return output.length ? output +"\n" : "";
 }
 
 // Check Polyfill
@@ -127,9 +93,7 @@ const check = (condition:any, checkTime:number) => {
 }
 
 export {
-  readFile,
   writeFile,
-  updateFile,
   ReadFileStream,
   WriteFileStream,
   init
