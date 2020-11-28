@@ -19,7 +19,7 @@ DnDB is an incredibly fast and powerful data store. All methods are streamed and
 ## 📦 Importing
 
 ```javascript
-import Datastore from 'https://x.nest.land/dndb@0.2.1/mod.ts'
+import Datastore from 'https://deno.land/x/dndb@0.2.2/mod.ts'
 ```
 
 ## 📖 Usage
@@ -38,7 +38,7 @@ All the api methods are asynchronous by default, so they return promises, but it
 ## ✔️ Instantiating the collection
 
 ```javascript
-import Datastore from 'https://x.nest.land/dndb@0.2.1/mod.ts'
+import Datastore from 'https://deno.land/x/dndb@0.2.2/mod.ts'
 
 const db = new Datastore({ filename:"./database.db", autoload: true })
 
