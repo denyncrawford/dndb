@@ -4,7 +4,7 @@
 
 DnDB is a javascript persistent database written for deno and available for Typescript.
 
-Inspired by NeDB, DnDB is a powerful but minimalist database engine written on JS that uses the mongo query API to edit and find data, making it 100% exportable to a mongojs environment.
+Inspired by NeDB, DnDB is a rogbust but minimalist database engine written on JS that uses/amulates the mongo query API to edit and find data, making it 100% exportable to a mongojs environment.
 
 > *Notice*: This project is under development, so it is subject to future improvements and changes.
 
@@ -18,9 +18,18 @@ DnDB is an incredibly fast and powerful data store. All methods are streamed and
 
 ## 📦 Importing
 
+**deno.land**
+
 ```javascript
 import Datastore from 'https://deno.land/x/dndb@0.2.2/mod.ts'
 ```
+
+**nest.land**
+
+```javascript
+import Datastore from 'https://x.nest.land/dndb@0.2.2/mod.ts'
+```
+
 
 ## 📖 Usage
 
@@ -225,9 +234,9 @@ await remove({ _id: 'id2' })
 - Error handlers.
 - SORT, SKIP, and LIMIT modifier methods support.
 
-# 📌 This module is right now on Alpha, but the main API is pretty usable for production.
+# 📌 This module is right now on Beta, but the main API is pretty usable for production.
 
-Since it is a standard, the API will not be subject to drastic changes, but its internal working will do, use with caution until the stable version.
+Since it is a standard, the API will not be subject to drastic changes, but its internal working will do.
 
 # 👊 Support this project by donating on:
 - [Paypal](https://paypal.me/DENYNCRAWFORD?locale.x=en_US).
