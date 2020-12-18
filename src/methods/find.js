@@ -3,10 +3,10 @@ import { ReadFileStream } from '../storage.ts';
 
 export default async (filename, query, projection) => {
   let stream = new ReadFileStream(filename);
-  let found = []; 
+  let found = [];
+  query = query || {};
   stream.on('document', obj => {
     if (matches(query , obj)){
-      console.log(obj);
       obj = Object.keys(projection).length ? project(obj, projection) : obj;
       found.push(obj)
     }

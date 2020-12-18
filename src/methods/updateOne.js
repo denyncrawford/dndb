@@ -5,6 +5,7 @@ export default async (filename ,query, operators, projection) => {
   const readStream = new ReadFileStream(filename);
   const writeStream = new WriteFileStream(filename);
   let updated = [];
+  query = query || {};
   return new Promise((resolve, reject) => {
     readStream.on('document', obj => {
       if (matches(query, obj) && !updated.length) {
