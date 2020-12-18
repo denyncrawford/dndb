@@ -1,5 +1,4 @@
 const encoder = new TextEncoder();
-const decoder = new TextDecoder('utf-8');
 import { EventEmitter } from "https://deno.land/std/node/events.ts";
 import { BufReader } from "https://deno.land/std/io/bufio.ts";
 import { existsSync } from "https://deno.land/std/fs/mod.ts";
