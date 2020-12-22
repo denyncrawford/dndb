@@ -3,9 +3,9 @@
 [![nest badge](https://nest.land/badge.svg)](https://nest.land/package/dndb) ![Hits](https://hitcounter.pythonanywhere.com/count/tag.svg?url=https%3A%2F%2Fgithub.com%2Fdenyncrawford%2Fdndb) [![(Deno)](https://img.shields.io/badge/deno-v1.1.3-green.svg?style=flat-square&logo=deno)](https://deno.land) [![license](https://img.shields.io/github/license/denyncrawford/dndb?logo=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABwAAAAcCAYAAAEFCu8CAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAHKADAAQAAAABAAAAHAAAAABHddaYAAAC5UlEQVRIDd2WPWtVQRCGby5pVASLiGghQSxyG8Ui2KWwCfkH9olY2JneQkiR0oCIxH/gB+qVFDYBIWBAbAIRSbCRpLXwIxLiPT7vnNm9e87ZxJtUwYH3zO47Mzv7Mbv3tlo5KYriGtgAJ81OY1ENdG/YI4boFEOI911BXgY/pdtwGuAtXpvmB1tAXHDnUolE5urkPOQo6MqA3pXWmJJL4Bb4rQ7yEYfxsjnIF29NJIoNC6e5fxOL/qN+9KCz7AaLpN8zI415N2i2EptpGrkRIjGeAuvR6IY1hSFLFUOug9Ms2M7ZxIUNytm1mnME186sdI2BOCwAyQMg54ugzSmKmwbPwSbolKH+hbAtQdsOoF+BsF3anUVwBdiOWRidFZDKTTrKEAJTm3GVrGkHzw/uPZbyx7DNNLfB7KGmRsCcr+/gjaiPSpAOTyX9qG4L/XBDdWXDDf1M+wtQ5fwCOtcb4Dto6VpLmzByB6gqdHbTItGSJdAGqibJQhmRfCF7IN4beSF2G9CqnGXQrxofXU+EykllNeoczRgYytDKMubDIRK0g5MF8rE69cGu0u9nlUcqaUZ41W0qK2nGcSzr4D2wV9U9wxp1rnpxn8agXAOHMQ9cy9kbHM7ngY4gFb03TxrO/yfBUifTtXt78jCrjY/jgEFnMn45LuNWUtknuu7NSm7D3QEn3HbatV1Q2jvgIRf1sfODKQaeymxZoMLlTqsq1LF+HvaTqQOzEzUCfni0/eNIA+DfuE3KEtbsegckGmMktTXacnBHPVe687ugkpT+axCkkhBSyRSjWI2xf1KMMVmYiQdWksK9BEFiQoiYLIlvJA3/zeTzCejP0RbB6YPbhZuB+0pR3KcdX0LaJtju0ZgBL8Bd+sbz2QIaU2OfBX3BaQLsgZysQtrk0M8Sh1A0w3DyyYnGnAiZ4gqZ/TvI2A8OGd1YIbF7+F3P+B6dYpYdsJNZgrjO0UdOIhmom0nwL0pnfnzkL1803jAoKhvyAAAAAElFTkSuQmCC)](https://github.com/denyncrawford/crawford/blob/master/LICENSE) 
 [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fdenyncrawford%2Fdndb.svg?type=small)](https://app.fossa.com/projects/git%2Bgithub.com%2Fdenyncrawford%2Fdndb?ref=badge_small)
 
-DnDB is a javascript persistent database written for deno and available for Typescript.
+DnDB is a javascript persistent database written for Deno and available for Typescript.
 
-Inspired by NeDB, DnDB is a rogbust but minimalist database engine written on JS that uses/amulates the mongo query API to edit and find data, making it 100% exportable to a mongojs environment.
+Inspired by NeDB, DnDB is a robust but minimalist database engine written on JS that uses/emulates the mongo query API to edit and find data, making it 100% exportable to a mongojs environment.
 
 > *Notice*: This project is under development, so it is subject to future improvements and changes.
 
@@ -56,9 +56,9 @@ const db = new Datastore({ filename:"./database.db", autoload: true })
 
 When you instantiate a collection you can pass it a config object with a couple of options:
 
-- `filename`: The filename is the absolute path to your traget file. If no filename is provided, DnDB will automatically create one in the current working directory, and if a full path is not specified, it will resolve the file name within the CWD.
+- `filename`: The filename is the absolute path to your target file. If no filename is provided, DnDB will automatically create one in the current working directory, and if a full path is not specified, it will resolve the file name within the CWD.
 
-- `autoload`: The autoload option runs the `loadDatabase` method which creates the persistent file the first time DnDB is runing in your project, this is optional, but if the loadDatabase method is not executed, the instance will not work until the persistent file exists.
+- `autoload`: The autoload option runs the `loadDatabase` method which creates the persistent file the first time DnDB is running in your project, this is optional, but if the loadDatabase method is not executed, the instance will not work until the persistent file exists.
 
 > *Notice*: The configuration content is currently in alpha, more options will be available soon.
 
@@ -66,12 +66,12 @@ When you instantiate a collection you can pass it a config object with a couple 
 
 All data types are allowed, but field names starting with '$' are reserved for data querying.
 
-If the document does not contain an _id field, DnDB will automatically generated one for you (a RFC4122 UUID alphanumerical string). The _id of a document, once set, shouldn't be modified.
+If the document does not contain an _id field, DnDB will automatically generate one for you (a RFC4122 UUID alphanumerical string). The _id of a document, once set, shouldn't be modified.
 
 ```javascript
 let obj = {
   name: 'denyn',
-  lastname: 'crawford'
+  lastName: 'crawford'
 }
 
 let insertion = await db.insert(obj)
@@ -141,7 +141,7 @@ let docs = await db.findOne({username:"denyncrawford"})
 
 // Deep querying syntax:
 
-let docs = await db.find( { fullname: { lastname: "Crawford" } })
+let docs = await db.find( { fullName: { lastName: "Crawford" } })
 
 ```
 
@@ -149,7 +149,7 @@ You can also use dot notation to find documents by deep querying.
 
 ```javascript
 
-let docs = await db.find( { "fullname.lastname": "Crawford" })
+let docs = await db.find( { "fullName.lastName": "Crawford" })
 
 // Using dot notation to find inside arrays:
 
@@ -215,7 +215,7 @@ To remove documents DnDB exposes the method:
 The remove method follows the same query rules as in `find` and `findOne` at first argument, it will remove all the documents that matches the query.
 
 ```javascript
-db.remove({ _id: 'id2' }, function (newdoc) {
+db.remove({ _id: 'id2' }, function (newDoc) {
   // ...foo(newDoc)
 });
 
@@ -233,13 +233,13 @@ await remove({ _id: 'id2' })
 - Event hooks on all the api usage
 - Count method
 - Improve documentation
-- Prevent updating inmutable data
+- Prevent updating immutable data
 - Error handlers.
 - SORT, SKIP, and LIMIT modifier methods support.
 
 # 📌 This module is right now on Beta, but the main API is pretty usable for production.
 
-Since it is a standard, the API will not be subject to drastic changes, but its internal working will do.
+Since it is a standard, the API will not be subject to drastic changes, but its internal working will.
 
 # 👊 Support this project by donating on:
 - [Paypal](https://paypal.me/DENYNCRAWFORD?locale.x=en_US).
