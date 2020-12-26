@@ -1,8 +1,8 @@
 import { mongobj, matches } from '../../deps.ts';
 import { ReadFileStream, WriteFileStream } from '../storage.ts';
 
-export default async (filename ,query, operators, projection) => {
-  const readStream = new ReadFileStream(filename);
+export default async (filename ,query, operators, bufSize) => {
+  const readStream = new ReadFileStream(filename, bufSize);
   const writeStream = new WriteFileStream(filename);
   let updated = [];
   query = query || {};

@@ -45,13 +45,13 @@ DnDB is an incredibly fast and powerful data store. All methods are streamed and
 **deno.land**
 
 ```javascript
-import Datastore from 'https://deno.land/x/dndb@0.2.4/mod.ts'
+import Datastore from 'https://deno.land/x/dndb@0.2.6/mod.ts'
 ```
 
 **nest.land**
 
 ```javascript
-import Datastore from 'https://x.nest.land/dndb@0.2.4/mod.ts'
+import Datastore from 'https://x.nest.land/dndb@0.2.6/mod.ts'
 ```
 
 
@@ -71,7 +71,7 @@ All the api methods are asynchronous by default, so they return promises, but it
 ## ✔️ Instantiating the collection
 
 ```javascript
-import Datastore from 'https://deno.land/x/dndb@0.2.4/mod.ts'
+import Datastore from 'https://deno.land/x/dndb@0.2.6/mod.ts'
 
 const db = new Datastore({ filename:"./database.db", autoload: true })
 
@@ -82,6 +82,8 @@ When you instantiate a collection you can pass it a config object with a couple 
 - `filename`: The filename is the absolute path to your target file. If no filename is provided, DnDB will automatically create one in the current working directory, and if a full path is not specified, it will resolve the file name within the CWD.
 
 - `autoload`: The autoload option runs the `loadDatabase` method which creates the persistent file the first time DnDB is running in your project, this is optional, but if the loadDatabase method is not executed, the instance will not work until the persistent file exists.
+
+- `bufSize`: The bufSize parameter rewrites the default size of the buffer. It must be indicated in numbers and represents the amount of bytes to be allocated. By default 4096 bytes.
 
 > *Notice*: The configuration content is currently in alpha, more options will be available soon.
 
@@ -156,11 +158,11 @@ db.find({name:"Denyn"}, {}, (docs) => {
 
 // or
 
-let docs = await db.find({name:"Denyn"})
+let docs = await db.find({ name: "Denyn" })
 
 // Finding unique document
 
-let docs = await db.findOne({username:"denyncrawford"})
+let docs = await db.findOne({ username: "denyncrawford" })
 
 // Deep querying syntax:
 

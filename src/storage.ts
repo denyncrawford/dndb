@@ -1,17 +1,25 @@
+import { EventEmitter, existsSync, BufReader } from '../deps.ts'
 const encoder = new TextEncoder();
-import { EventEmitter } from "https://deno.land/std/node/events.ts";
-import { BufReader } from "https://deno.land/std/io/bufio.ts";
-import { existsSync } from "https://deno.land/std/fs/mod.ts";
+let loaded;
 
-// Ensure datastore initialization on first load
+/** 
+ * Ensure datastore initialization on first load
+ * @method init
+ * @param {string} filename - File path to the data collections
+*/
 
 const init = async (filename:string) => {
   if (!existsSync(filename)) {
     await Deno.writeFile(filename, encoder.encode(''))
   }
+  loaded = true
 }
 
-//Write file line by line on a stream
+/** 
+ * Write file line by line on a stream
+ * @class WriteFileStream
+ * @param {string} filename - File path to the data collections
+*/
 
 class WriteFileStream extends EventEmitter {
   constructor(private filename: string) {
@@ -35,7 +43,12 @@ class WriteFileStream extends EventEmitter {
   }
 }
 
-// Writes line by line and commits the datastore
+/** 
+ * Append file line by line
+ * @mehtod writeFile
+ * @param {string} filename - File path to the data collections
+ * @param {object} data - Data to write.
+*/
 
 const writeFile = async (filename:string, data:object) => {
   await ensureExists(filename);
@@ -43,16 +56,21 @@ const writeFile = async (filename:string, data:object) => {
   await Deno.writeFile(filename, doc, {append: true});
 }
 
-// Reads the datastore by streaming and buffering chunks
+/** 
+ * Reads the datastore by streaming and buffering chunks
+ * @class ReadFileStream
+ * @param {string} filename - File path to the data collections
+ * @param {number=} bufSize - Rewrite the default buffer size
+*/
 
 class ReadFileStream extends EventEmitter {
-  constructor(private filename: string) {
+  constructor(private filename: string, private bufSize?: number) {
     super();
     this.stream();
   }
   async stream() {
     const file = await Deno.open(this.filename);
-    const bufReader = new BufReader(file);
+    const bufReader = new BufReader(file, this.bufSize);
     let line: any;
     while ((line = await bufReader.readString('\n')) != null) {
       let doc: object = JSON.parse(line);
@@ -63,14 +81,22 @@ class ReadFileStream extends EventEmitter {
   }
 }
 
-// Ensures data if file doesn't exists
+/** 
+ * Ensures data if file doesn't exists
+ * @method ensureExists
+ * @param {string} filename - File path to the data collections
+*/
 
 const ensureExists = async (filename:string) => {
   if (!existsSync(filename)) await check(() => existsSync(filename), 100)
   return
 }
 
-// Esures the temp file is merged
+/** 
+ * Esures the temp file is merged
+ * @method ensureCommit
+ * @param {string} filename - File path to the data collections
+*/
 
 const ensureCommit = async (filename:string) => {
   if (existsSync(filename)) await check(() => existsSync(filename), 100)

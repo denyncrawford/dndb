@@ -1,8 +1,8 @@
 import { matches, project }  from '../../deps.ts';
 import { ReadFileStream } from '../storage.ts';
 
-export default async (filename, query, projection) => {
-  let stream = new ReadFileStream(filename);
+export default async (filename, query, projection, bufSize) => {
+  const stream = new ReadFileStream(filename, bufSize);
   let found = [];
   query = query || {};
   stream.on('document', obj => {
