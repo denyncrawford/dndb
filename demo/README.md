@@ -7,7 +7,7 @@ This demo shows you how to use DnDB in a backend environment.
 - Run the demo with the permission flags.
 
 ```bash
-deno run -A --unstable https://x.nest.land/dndb/0.2.5/demo/mod.js
+deno run -A --unstable https://x.nest.land/dndb/0.2.7/demo/mod.js
 ```
 
 You can start playing with the new demo UI. Fist try to insert a document typing an username and clicking 'Make Query'.
