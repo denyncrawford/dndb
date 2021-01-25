@@ -9,12 +9,12 @@ export default async (filename, query, bufSize) => {
   return new Promise((resolve, reject) => {
     readStream.on('document', obj => {
       if (!matches(query, obj)) 
-        writeStream.emit("write", obj)
+        writeStream.write(obj)
       else 
         removed.push(obj)
     })
     readStream.on("end", () => {
-      writeStream.emit("end");
+      writeStream.end();
     })
     writeStream.on("close", () => {
       return resolve(removed)

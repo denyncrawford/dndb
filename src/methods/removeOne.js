@@ -11,10 +11,10 @@ export default async (filename, query, bufSize) => {
       if (matches(query, obj) && removed.length == 0) 
         removed.push(obj)
       else if (obj._id !== removed[0]?._id)
-        writeStream.emit("write", obj)
+        writeStream.write(obj)
     })
     readStream.on("end", () => {
-      writeStream.emit("end");
+      writeStream.end();
     })
     writeStream.on("close", () => {
       return resolve(removed[0] || null)

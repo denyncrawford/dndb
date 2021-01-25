@@ -12,10 +12,10 @@ export default async (filename ,query, operators, bufSize) => {
         mongobj.update(obj, operators);
         updated.push(obj)
       }
-      writeStream.emit("write", obj)
+      writeStream.write(obj)
     })
     readStream.on("end", () => {
-      writeStream.emit("end");
+      writeStream.end();
     })
     writeStream.on("close", () => {
       return resolve(updated)

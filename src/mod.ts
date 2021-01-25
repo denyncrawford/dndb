@@ -54,8 +54,8 @@ class Datastore extends EventEmitter {
     */
 
     async find (query: {any: any}, projection: any = {}, cb: (x: any) => any) {
-        if (cb && typeof cb == 'function') return cb(await _find(this.filename, query, projection, this.bufSize));
-        return _find(this.filename, query, projection, this.bufSize)
+        if (cb && typeof cb == 'function') return cb(await this.executor.add(_find, [this.filename, query, projection, this.bufSize]));
+        return this.executor.add(_find, [this.filename, query, projection, this.bufSize])
     }
 
     /**
@@ -69,8 +69,8 @@ class Datastore extends EventEmitter {
 
     async findOne(query: {any: any}, projection: any = {}, cb: (x: any) => any) {
         projection = projection || {};
-        if (cb && typeof cb == 'function') return cb(await _findOne(this.filename, query, projection, this.bufSize));
-        return _findOne(this.filename, query, projection, this.bufSize)
+        if (cb && typeof cb == 'function') return cb(await this.executor.add(_findOne, [this.filename, query, projection, this.bufSize]));
+        return this.executor.add(_findOne, [this.filename, query, projection, this.bufSize])
     }
 
     /**
@@ -82,8 +82,8 @@ class Datastore extends EventEmitter {
     */
 
     async insert (data: any, cb: (x: any) => any) {
-        if (cb && typeof cb == 'function') await _insert(this.filename, data)
-        return _insert(this.filename, data)
+        if (cb && typeof cb == 'function') cb(await this.executor.add(_insert, [this.filename, data]))
+        return this.executor.add(_insert, [this.filename, data])
     }
 
     /**
@@ -96,8 +96,8 @@ class Datastore extends EventEmitter {
     */
 
     async update (query: {any: any}, operators: any, cb: (x: any) => any) {
-        if (cb && typeof cb == "function") return cb(await _update(this.filename, query, operators, this.bufSize));
-        return _update(this.filename, query, operators, this.bufSize)
+        if (cb && typeof cb == "function") return cb(await this.executor.add(_update, [this.filename, query, operators, this.bufSize]));
+        return this.executor.add(_update, [this.filename, query, operators, this.bufSize])
     }
 
     /**
@@ -110,7 +110,7 @@ class Datastore extends EventEmitter {
     */
 
     async updateOne (query: {any: any}, operators: any, cb: (x: any) => any) {
-        if (cb && typeof cb == "function") return cb(await _updateOne(this.filename, query, operators, this.bufSize));
+        if (cb && typeof cb == "function") return cb(await this.executor.add(_updateOne, [this.filename, query, operators, this.bufSize]));
         return this.executor.add(_updateOne, [this.filename, query, operators, this.bufSize])
     }
 
@@ -123,8 +123,8 @@ class Datastore extends EventEmitter {
     */
 
     async remove(query: any, cb: (x: any) => any) {
-        if (cb && typeof cb == "function") return cb(await _remove(this.filename, query, this.bufSize));
-        return _remove(this.filename, query, this.bufSize)
+        if (cb && typeof cb == "function") return cb(await this.executor.add(_remove, [this.filename, query, this.bufSize]));
+        return this.executor.add(_remove, [this.filename, query, this.bufSize])
     }
 
     /**
@@ -136,8 +136,8 @@ class Datastore extends EventEmitter {
     */
 
     async removeOne(query: any, cb: (x: any) => any) {
-        if (cb && typeof cb == "function") return cb(await _removeOne(this.filename, query, this.bufSize));
-        return _removeOne(this.filename, query, this.bufSize)
+        if (cb && typeof cb == "function") return cb(await this.executor.add(_removeOne, [this.filename, query, this.bufSize]));
+        return this.executor.add(_removeOne, [this.filename, query, this.bufSize])
     }
 
 } 
