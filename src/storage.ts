@@ -1,5 +1,6 @@
 import { EventEmitter, existsSync, BufReader } from '../deps.ts'
 const encoder = new TextEncoder();
+const decoder = new TextDecoder();
 let loaded;
 
 /** 
@@ -22,24 +23,23 @@ const init = async (filename:string) => {
 */
 
 class WriteFileStream extends EventEmitter {
+  private file: any;
+  private updatedFile: string;
   constructor(private filename: string) {
     super();
-    this.stream();
+    this.updatedFile = `${this.filename}.updated`;
+    if (existsSync(this.updatedFile)) Deno.renameSync(this.updatedFile, this.filename);
+    this.file = Deno.openSync(this.updatedFile, { write: true, create: true });
   }
-  async stream() {
-    const updatedFile = `${this.filename}.updated`;
-    await ensureCommit(updatedFile)
-    await ensureExists(this.filename)
-    const file = Deno.openSync(updatedFile, { write: true, create: true });
-    this.on("write", (data) => {
-      let uit8 = encoder.encode(JSON.stringify(data)+"\n")
-      Deno.writeAllSync(file, uit8)
-    })
-    this.on('end', async () => {
-      file.close()
-      await Deno.rename(updatedFile, this.filename)
-      this.emit("close")
-    })
+  public async write(data: Object) {
+    let uit8 = encoder.encode(JSON.stringify(data)+"\n")
+    Deno.writeAllSync(this.file, uit8)
+    return true
+  }
+  public async end() {
+    Deno.close(this.file.rid);
+    await Deno.rename(this.updatedFile, this.filename);
+    this.emit("close");
   }
 }
 
@@ -72,12 +72,12 @@ class ReadFileStream extends EventEmitter {
     const file = await Deno.open(this.filename);
     const bufReader = new BufReader(file, this.bufSize);
     let line: any;
-    while ((line = await bufReader.readString('\n')) != null) {
-      let doc: object = JSON.parse(line);
+    while ((line = await bufReader.readLine()) != null) {    
+      let doc: object = JSON.parse(decoder.decode(line.line));
       this.emit('document', doc)
     }
-    this.emit('end')
     file.close();
+    this.emit('end')
   }
 }
 

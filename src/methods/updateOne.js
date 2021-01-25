@@ -1,5 +1,6 @@
 import { mongobj, matches } from '../../deps.ts';
 import { ReadFileStream, WriteFileStream } from '../storage.ts';
+import Executor from '../executor.ts'
 
 export default async (filename ,query, operators, bufSize) => {
   const readStream = new ReadFileStream(filename, bufSize);
@@ -7,15 +8,15 @@ export default async (filename ,query, operators, bufSize) => {
   let updated = [];
   query = query || {};
   return new Promise((resolve, reject) => {
-    readStream.on('document', obj => {
+    readStream.on('document', async obj => {
       if (matches(query, obj) && !updated.length) {
         mongobj.update(obj, operators);
         updated.push(obj)
       }
-      writeStream.emit("write", obj)
+      writeStream.write(obj)
     })
     readStream.on("end", () => {
-      writeStream.emit("end");
+      writeStream.end();
     })
     writeStream.on("close", () => {
       return resolve(updated[0] || null)

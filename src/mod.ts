@@ -2,6 +2,7 @@ import { _find, _insert, _findOne, _update, _updateOne, _remove, _removeOne } fr
 import { init } from './storage.ts';
 import DataStoreOptions from './types/ds.options.ts'
 import { EventEmitter, resolve } from '../deps.ts'
+import Executor from './executor.ts'
 
 /**
  * Represents the Datastore instance.
@@ -12,6 +13,7 @@ import { EventEmitter, resolve } from '../deps.ts'
 class Datastore extends EventEmitter {
     public filename: string;
     private bufSize?: number;
+    private executor: Executor = new Executor();
 
     /**
      * Builds the datastore with the given options.
@@ -109,7 +111,7 @@ class Datastore extends EventEmitter {
 
     async updateOne (query: {any: any}, operators: any, cb: (x: any) => any) {
         if (cb && typeof cb == "function") return cb(await _updateOne(this.filename, query, operators, this.bufSize));
-        return _updateOne(this.filename, query, operators, this.bufSize)
+        return this.executor.add(_updateOne, [this.filename, query, operators, this.bufSize])
     }
 
     /**
