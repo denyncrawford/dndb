@@ -39,19 +39,20 @@ DnDB is an incredibly fast and powerful data store. All methods are streamed and
 ## 🧪 Quick test
 
 [Run the demo](/demo/README.md) to test DnDB in a server environment.
+Also this demo lives on [Codesandbox](https://codesandbox.io/s/6x0uw)
 
 ## 📦 Importing
 
 **deno.land**
 
 ```javascript
-import Datastore from 'https://deno.land/x/dndb@0.3.0/mod.ts'
+import Datastore from 'https://deno.land/x/dndb@0.3.1/mod.ts'
 ```
 
 **nest.land**
 
 ```javascript
-import Datastore from 'https://x.nest.land/dndb@0.3.0/mod.ts'
+import Datastore from 'https://x.nest.land/dndb@0.3.1/mod.ts'
 ```
 
 
@@ -71,7 +72,7 @@ All the api methods are asynchronous by default, so they return promises, but it
 ## ✔️ Instantiating the collection
 
 ```javascript
-import Datastore from 'https://deno.land/x/dndb@0.3.0/mod.ts'
+import Datastore from 'https://deno.land/x/dndb@0.3.1/mod.ts'
 
 const db = new Datastore({ filename:"./database.db", autoload: true })
 
@@ -253,9 +254,12 @@ await remove({ _id: 'id2' })
 
 > *Notice*: If you want to unset a  value from the document you must use update with the $unset operator. See all rules and operators list [here](https://www.npmjs.com/package/mingo)
 
-# 📝 TO DO
-
-- Event hooks on all the api usage
+# 📝 Roadmap
+- Standard methods
+- Database from datastores factory
+- Read and write streams and buffer
+- Global Queue executor
+- Event hooks on all the API usage
 - Count method
 - Improve documentation
 - Prevent updating immutable data

@@ -1,4 +1,4 @@
-import { mongobj, matches } from '../../deps.ts';
+import { updater, matches } from '../../deps.ts';
 import { ReadFileStream, WriteFileStream } from '../storage.ts';
 import Executor from '../executor.ts'
 
@@ -10,7 +10,7 @@ export default async (filename ,query, operators, bufSize) => {
   return new Promise((resolve, reject) => {
     readStream.on('document', async obj => {
       if (matches(query, obj) && !updated.length) {
-        mongobj.update(obj, operators);
+        updater.update(obj, operators);
         updated.push(obj)
       }
       writeStream.write(obj)

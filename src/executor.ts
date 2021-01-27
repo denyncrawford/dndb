@@ -7,7 +7,7 @@ export default class Executor {
       this.queue.push(async () => {
         const finished = await method(...params);
         res(finished);
-        if (typeof finished === "undefined" || finished) this.next();      
+        if (typeof finished === "undefined" || finished === null || finished) this.next();      
       });
       if(!this.running) this.next();
     })
