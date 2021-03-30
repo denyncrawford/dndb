@@ -272,7 +272,9 @@ Since it is a standard, the API will not be subject to drastic changes, but its 
 
 # 👊 Support this project by donating on:
 - [Paypal](https://paypal.me/DENYNCRAWFORD?locale.x=en_US).
-- BTC address: 39ik7oyYvmiMeTXTscY3bb9rUFMHdjf5pd
+- BTC address: 1AwAW9gj7zsHWjoawm1yFntjE69uvEjJTv
+- USDT adress (BSC) 0x9c83792244a8ee2e5b4c595b001ad8d7173e98bf
+- USDT adress (ERC20) 0x9c83792244a8ee2e5b4c595b001ad8d7173e98bf
 
 # 📜 MIT License
 
