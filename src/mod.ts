@@ -82,7 +82,7 @@ class Datastore extends EventEmitter {
     */
 
     async insert(data: any, cb?: (x: any) => any) {
-        if (cb && typeof cb == 'function') cb(await this.executor.add(_insert, [this.filename, data]))
+        if (cb && typeof cb == 'function') return cb(await this.executor.add(_insert, [this.filename, data]))
         return this.executor.add(_insert, [this.filename, data])
     }
 
