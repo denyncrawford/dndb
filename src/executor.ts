@@ -1,8 +1,10 @@
+import { DbResults } from './types.ts'
+
 export default class Executor {
   private queue:any = [];
   private running:Boolean = false;
 
-  public async add(method: Function, params:any) {
+  public async add(method: Function, params:any) : Promise<DbResults>  {
     return new Promise((res, rej) => {
       this.queue.push(async () => {
         const finished = await method(...params);

@@ -1,3 +1,4 @@
+import { DataObject, Projection, DbResults } from './types.ts'
 import { _find, _insert, _findOne, _update, _updateOne, _remove, _removeOne } from './methods/mod.js';
 import { init } from './storage.ts';
 import DataStoreOptions from './types/ds.options.ts'
@@ -5,9 +6,6 @@ import { EventEmitter, resolve } from '../deps.ts'
 import Executor from './executor.ts'
 
 
-export type DataObject = { [k: string]: unknown }
-export type Projection = { [k: string]: (0 | 1) }
-export type FindResults = DataObject[]
 
 /**
  * Represents the Datastore instance.
@@ -58,10 +56,12 @@ class Datastore extends EventEmitter {
     * @return Promise
     */
 
-async find(query: DataObject, projection: Projection = {}, cb ?: (x: FindResults) => void)  : Promise<FindResults> {
-  /** @ts-ignore */
-  if (cb && typeof cb == 'function') return cb(await this.executor.add(_find, [this.filename, query, projection, this.bufSize]));
-  /** @ts-ignore */
+async find(query: DataObject, projection: Projection = {}, cb? : (x: DbResults) => void)  : 
+  Promise<DbResults> {
+  if (cb && typeof cb == 'function') {
+    cb(await this.executor.add(_find, [this.filename, query, projection, this.bufSize]));
+    return
+  }
   return this.executor.add(_find, [this.filename, query, projection, this.bufSize])
 }
 
@@ -74,11 +74,12 @@ async find(query: DataObject, projection: Projection = {}, cb ?: (x: FindResults
 * @return Promise
 */
 
-async findOne(query: DataObject, projection: Projection = {}, cb ?: (x: DataObject) => void) {
+async findOne(query: DataObject, projection: Projection = {}, cb ?: (x: DbResults) => void) : Promise<DbResults> {
   projection = projection || {};
-  /** @ts-ignore */
-  if (cb && typeof cb == 'function') return cb(await this.executor.add(_findOne, [this.filename, query, projection, this.bufSize]));
-  /** @ts-ignore */
+  if (cb && typeof cb == 'function') {
+    cb(await this.executor.add(_findOne, [this.filename, query, projection, this.bufSize]));
+    return
+  }
   return this.executor.add(_findOne, [this.filename, query, projection, this.bufSize])
 }
 
@@ -90,10 +91,11 @@ async findOne(query: DataObject, projection: Projection = {}, cb ?: (x: DataObje
 * @return Promise
 */
 
-async insert(data: DataObject, cb ?: (x: DataObject) => void) {
-  /** @ts-ignore **/
-  if (cb && typeof cb == 'function') return cb(await this.executor.add(_insert, [this.filename, data]))
-  /** @ts-ignore **/
+async insert(data: DataObject, cb ?: (x: DbResults) => void) : Promise<DbResults> {
+  if (cb && typeof cb == 'function') {
+    cb(await this.executor.add(_insert, [this.filename, data]))
+    return
+  }
   return this.executor.add(_insert, [this.filename, data])
 }
 
@@ -106,10 +108,11 @@ async insert(data: DataObject, cb ?: (x: DataObject) => void) {
 * @return Promise
 */
 
-async update(query: DataObject, operators: DataObject, cb ?: (x: DataObject) => void) {
-  /** @ts-ignore */
-  if (cb && typeof cb == "function") return cb(await this.executor.add(_update, [this.filename, query, operators, this.bufSize]));
-  /** @ts-ignore */
+async update(query: DataObject, operators: DataObject, cb ?: (x: DbResults) => void) : Promise<DbResults> {
+  if (cb && typeof cb == "function") {
+    cb(await this.executor.add(_update, [this.filename, query, operators, this.bufSize]));
+    return 
+  }
   return this.executor.add(_update, [this.filename, query, operators, this.bufSize])
 
 }
@@ -123,10 +126,11 @@ async update(query: DataObject, operators: DataObject, cb ?: (x: DataObject) => 
 * @return Promise
 */
 
-async updateOne(query: DataObject, operators: DataObject, cb ?: (x: DataObject) => void) {
-  /** @ts-ignore */
-  if (cb && typeof cb == "function") return cb(await this.executor.add(_updateOne, [this.filename, query, operators, this.bufSize]));
-  /** @ts-ignore */
+async updateOne(query: DataObject, operators: DataObject, cb ?: (x: DbResults) => void) : Promise<DbResults> {
+  if (cb && typeof cb == "function") {
+    cb(await this.executor.add(_updateOne, [this.filename, query, operators, this.bufSize]));
+    return
+  }
   return this.executor.add(_updateOne, [this.filename, query, operators, this.bufSize])
 }
 
@@ -138,10 +142,10 @@ async updateOne(query: DataObject, operators: DataObject, cb ?: (x: DataObject) 
 * @return Promise
 */
 
-async remove(query: DataObject, cb ?: (x: DataObject) => void) {
-  /** @ts-ignore */
-  if (cb && typeof cb == "function") return cb(await this.executor.add(_remove, [this.filename, query, this.bufSize]));
-  /** @ts-ignore */
+async remove(query: DataObject, cb ?: (x: DbResults) => void) {
+  if (cb && typeof cb == "function") {
+    return cb(await this.executor.add(_remove, [this.filename, query, this.bufSize]));
+  }
   return this.executor.add(_remove, [this.filename, query, this.bufSize])
 }
 
@@ -153,10 +157,11 @@ async remove(query: DataObject, cb ?: (x: DataObject) => void) {
 * @return Promise
 */
 
-async removeOne(query: DataObject, cb ?: (x: DataObject) => void) {
-  /** @ts-ignore */
-  if (cb && typeof cb == "function") return cb(await this.executor.add(_removeOne, [this.filename, query, this.bufSize]));
-  /** @ts-ignore */
+async removeOne(query: DataObject, cb ?: (x: DbResults) => void) {
+  if (cb && typeof cb == "function") {
+    cb(await this.executor.add(_removeOne, [this.filename, query, this.bufSize]));
+    return
+  }
   return this.executor.add(_removeOne, [this.filename, query, this.bufSize])
 }
 
