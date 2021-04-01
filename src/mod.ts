@@ -4,6 +4,11 @@ import DataStoreOptions from './types/ds.options.ts'
 import { EventEmitter, resolve } from '../deps.ts'
 import Executor from './executor.ts'
 
+
+export type DataObject = { [k: string]: unknown }
+export type Projection = { [k: string]: (0 | 1) }
+export type FindResults = DataObject[]
+
 /**
  * Represents the Datastore instance.
  * @class
@@ -53,10 +58,10 @@ class Datastore extends EventEmitter {
     * @return Promise
     */
 
-    type FindResults = { [k: string]: unknown }[]
-
-async find(query: { [k: string]: unknown }, projection: { [k: string]: number } = {}, cb ?: (x: FindResults) => void) {
+async find(query: DataObject, projection: Projection = {}, cb ?: (x: FindResults) => void)  : Promise<FindResults> {
+  /** @ts-ignore */
   if (cb && typeof cb == 'function') return cb(await this.executor.add(_find, [this.filename, query, projection, this.bufSize]));
+  /** @ts-ignore */
   return this.executor.add(_find, [this.filename, query, projection, this.bufSize])
 }
 
@@ -69,9 +74,11 @@ async find(query: { [k: string]: unknown }, projection: { [k: string]: number } 
 * @return Promise
 */
 
-async findOne(query: { any: any }, projection: any = {}, cb ?: (x: any) => any) {
+async findOne(query: DataObject, projection: Projection = {}, cb ?: (x: DataObject) => void) {
   projection = projection || {};
+  /** @ts-ignore */
   if (cb && typeof cb == 'function') return cb(await this.executor.add(_findOne, [this.filename, query, projection, this.bufSize]));
+  /** @ts-ignore */
   return this.executor.add(_findOne, [this.filename, query, projection, this.bufSize])
 }
 
@@ -83,8 +90,10 @@ async findOne(query: { any: any }, projection: any = {}, cb ?: (x: any) => any) 
 * @return Promise
 */
 
-async insert(data: any, cb ?: (x: any) => any) {
+async insert(data: DataObject, cb ?: (x: DataObject) => void) {
+  /** @ts-ignore **/
   if (cb && typeof cb == 'function') return cb(await this.executor.add(_insert, [this.filename, data]))
+  /** @ts-ignore **/
   return this.executor.add(_insert, [this.filename, data])
 }
 
@@ -97,9 +106,12 @@ async insert(data: any, cb ?: (x: any) => any) {
 * @return Promise
 */
 
-async update(query: { any: any }, operators: any, cb ?: (x: any) => any) {
+async update(query: DataObject, operators: DataObject, cb ?: (x: DataObject) => void) {
+  /** @ts-ignore */
   if (cb && typeof cb == "function") return cb(await this.executor.add(_update, [this.filename, query, operators, this.bufSize]));
+  /** @ts-ignore */
   return this.executor.add(_update, [this.filename, query, operators, this.bufSize])
+
 }
 
 /**
@@ -111,8 +123,10 @@ async update(query: { any: any }, operators: any, cb ?: (x: any) => any) {
 * @return Promise
 */
 
-async updateOne(query: { any: any }, operators: any, cb ?: (x: any) => any) {
+async updateOne(query: DataObject, operators: DataObject, cb ?: (x: DataObject) => void) {
+  /** @ts-ignore */
   if (cb && typeof cb == "function") return cb(await this.executor.add(_updateOne, [this.filename, query, operators, this.bufSize]));
+  /** @ts-ignore */
   return this.executor.add(_updateOne, [this.filename, query, operators, this.bufSize])
 }
 
@@ -124,8 +138,10 @@ async updateOne(query: { any: any }, operators: any, cb ?: (x: any) => any) {
 * @return Promise
 */
 
-async remove(query: any, cb ?: (x: any) => any) {
+async remove(query: DataObject, cb ?: (x: DataObject) => void) {
+  /** @ts-ignore */
   if (cb && typeof cb == "function") return cb(await this.executor.add(_remove, [this.filename, query, this.bufSize]));
+  /** @ts-ignore */
   return this.executor.add(_remove, [this.filename, query, this.bufSize])
 }
 
@@ -137,8 +153,10 @@ async remove(query: any, cb ?: (x: any) => any) {
 * @return Promise
 */
 
-async removeOne(query: any, cb ?: (x: any) => any) {
+async removeOne(query: DataObject, cb ?: (x: DataObject) => void) {
+  /** @ts-ignore */
   if (cb && typeof cb == "function") return cb(await this.executor.add(_removeOne, [this.filename, query, this.bufSize]));
+  /** @ts-ignore */
   return this.executor.add(_removeOne, [this.filename, query, this.bufSize])
 }
 
