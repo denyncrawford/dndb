@@ -1,2 +1,6 @@
 image:
   file: .gitpod.Dockerfile
+
+vscode:
+  extensions:
+    - denoland.vscode-deno@3.2.0:Uwf/jB20dfIdQC0JrEprsw==
