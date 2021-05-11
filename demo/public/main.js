@@ -32,11 +32,11 @@ const app = new Vue({
         "update",
         "updateOne",
         "remove",
-        "removeOne"
+        "removeOne",
       ],
       lastResponse: "",
       error: "",
-      success: ""
+      success: "",
     };
   },
   async mounted() {
@@ -68,40 +68,49 @@ const app = new Vue({
           }.`;
           break;
         case "insert":
-          if (!query.length)
+          if (!query.length) {
             return (this.error =
               "You can not insert an empty username (for this demo), please type a username.");
+          }
           let { data: insertData } = await axios.post(`/${query}`);
           this.updateResponse(insertData);
           this.success = "New document inserted.";
           break;
         case "update":
-          if (!query.length)
+          if (!query.length) {
             return (this.error =
               "You cannot update an empty username, type a username and followed by a comma the new update.");
+          }
           let updateQuery = query.split(",");
-          if (updateQuery.length !== 2)
+          if (updateQuery.length !== 2) {
             return (this.error =
               "You must specify a update, please type a username and followed by a comma the new update.");
+          }
           let { data: updateData } = await axios.put(
-            `/all/${updateQuery[0].trim()}/${updateQuery[1].trim()}`
+            `/all/${updateQuery[0].trim()}/${updateQuery[1].trim()}`,
           );
           this.updateResponse(updateData);
-          this.success = `All document matching ${updateQuery[0]} updated to ${updateQuery[1]}.`;
+          this.success = `All document matching ${updateQuery[0]} updated to ${
+            updateQuery[1]
+          }.`;
           break;
         case "updateOne":
-          if (!query.length)
+          if (!query.length) {
             return (this.error =
               "You can not update an empty username, please type a username and followed by a comma the new update.");
+          }
           let updateOneQuery = query.split(",");
-          if (updateOneQuery.length !== 2)
+          if (updateOneQuery.length !== 2) {
             return (this.error =
               "You must specify a update, please type a username and followed by a comma the new update.");
+          }
           let { data: updateOneData } = await axios.put(
-            `/${updateOneQuery[0].trim()}/${updateOneQuery[1].trim()}`
+            `/${updateOneQuery[0].trim()}/${updateOneQuery[1].trim()}`,
           );
           this.updateResponse(updateOneData);
-          this.success = `The first document matching ${updateOneQuery[0]} updated to ${updateOneQuery[1]}.`;
+          this.success = `The first document matching ${
+            updateOneQuery[0]
+          } updated to ${updateOneQuery[1]}.`;
           break;
         case "remove":
           let removedData;
@@ -115,11 +124,12 @@ const app = new Vue({
         case "removeOne":
           let { data: removeOneData } = await axios.delete(`/${query}`);
           this.updateResponse(removeOneData);
-          this.success = `Removed first documents matching the query: ${query}.`;
+          this.success =
+            `Removed first documents matching the query: ${query}.`;
           break;
         default:
           break;
       }
-    }
-  }
+    },
+  },
 });

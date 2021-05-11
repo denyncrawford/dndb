@@ -1,26 +1,32 @@
-import { DbResults } from './types.ts'
+import type { DbResults } from "./types.ts";
 
 export default class Executor {
-  private queue:any = [];
-  private running:Boolean = false;
+  private queue: ((() => Promise<void> | void) | undefined)[] = [];
+  private running = false;
 
-  public async add(method: Function, params:any) : Promise<DbResults>  {
-    return new Promise((res, rej) => {
+  public add<
+    // deno-lint-ignore no-explicit-any
+    Args extends readonly any[],
+    F extends (...args: Args) => Promise<DbResults>,
+  >(
+    method: F,
+    params: Args,
+  ) {
+    return new Promise<DbResults>((res) => {
       this.queue.push(async () => {
-        const finished = await method(...params);
-        res(finished);
-        if (typeof finished === "undefined" || finished === null || finished) this.next();      
+        res(await method(...params));
+        this.next();
       });
-      if(!this.running) this.next();
-    })
+      if (!this.running) this.next();
+    });
   }
 
   public async next() {
-    this.running = false;    
-    const execute = this.queue.shift();      
-    if (execute) { 
+    this.running = false;
+    const execute = this.queue.shift();
+    if (execute) {
       this.running = true;
-      await execute(); 
+      await execute();
     }
   }
 }
