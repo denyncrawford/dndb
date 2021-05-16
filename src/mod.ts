@@ -1,4 +1,4 @@
-import type { DataObject, DbResults, Projection } from "./types.ts";
+import type { DataObject, DbResults, Mongobj, Projection } from "./types.ts";
 import {
   _find,
   _findOne,
@@ -90,7 +90,7 @@ export class Datastore<Doc extends DataObject> extends EventEmitter {
   /** Update multiple matching documents */
   async update(
     query: Partial<Doc>,
-    operators: Partial<Doc>,
+    operators: Mongobj<Doc>,
     cb?: (x: DbResults<Doc>) => void,
   ) {
     const results = await this.executor.add(
@@ -106,7 +106,7 @@ export class Datastore<Doc extends DataObject> extends EventEmitter {
   /** Update first matching document */
   async updateOne(
     query: Partial<Doc>,
-    operators: Partial<Doc>,
+    operators: Mongobj<Doc>,
     cb?: (x: DbResults<Doc>) => void,
   ) {
     const results = await this.executor.add(

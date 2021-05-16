@@ -6,3 +6,9 @@ export type Projection<
 export type Results<T> = T | void;
 export type DbResults<Doc = DataObject> = Results<MaybeArray<Doc>>;
 export type WithID<Doc = DataObject> = Doc & { _id: string };
+export type Mongobj<T> = {
+  $set?: Partial<T>;
+  $unset?: Partial<T>;
+  $push?: Partial<T>;
+  $pull?: Partial<T>;
+};

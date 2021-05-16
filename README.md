@@ -325,4 +325,4 @@ Copyright (c) Crawford.
 | ------ | ----------------------------------------------------------------------------------- |
 | Format | `deno fmt`                                                                          |
 | Lint   | `deno lint --unstable --ignore=test,demo`                                           |
-| Test   | `deno test --unstable --allow-read=. --allow-write=db.db,db.db.updated test/mod.js` |
+| Test   | `deno test --unstable --allow-read=. --allow-write=db.db,db.db.updated`             |

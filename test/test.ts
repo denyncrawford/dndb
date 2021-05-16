@@ -1,6 +1,6 @@
 import { Datastore } from "../src/mod.ts";
 
-let db;
+let db: Datastore<{ name: string }>;
 
 Deno.test("Creating datastore collection", () => {
   return new Promise((res) => {
@@ -33,9 +33,9 @@ Deno.test("Finding multiple with await", async () => {
   await db.find({ name: "Denyn" });
 });
 
-Deno.test("Finding multiple with callback", async () => {
+Deno.test("Finding multiple with callback", () => {
   return new Promise((res) => {
-    db.find({ name: "Denyn" }, {}, (docs) => {
+    db.find({ name: "Denyn" }, {}, () => {
       res();
     });
   });

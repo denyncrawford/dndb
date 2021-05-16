@@ -73,7 +73,6 @@ async function ensureExists(filename: string) {
 /** Check Polyfill */
 function check(condition: () => boolean, checkTime: number) {
   return new Promise((resolve) => {
-    // deno-lint-ignore no-unused-vars
     const timerId = setInterval(() => {
       if (condition()) {
         clearInterval(timerId);
