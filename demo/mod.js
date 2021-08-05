@@ -1,6 +1,6 @@
 import Datastore from "https://deno.land/x/dndb/mod.ts";
 import { opine, serveStatic } from "https://deno.land/x/opine@1.0.0/mod.ts";
-import { join, dirname } from "../deps.ts";
+import { dirname, join } from "../deps.ts";
 const __dirname = dirname(import.meta.url);
 const app = opine();
 const db = new Datastore({ filename: "./database.db", autoload: true });
@@ -8,7 +8,7 @@ const db = new Datastore({ filename: "./database.db", autoload: true });
 app.use(serveStatic(join(__dirname, "public")));
 
 app.get("/", async (req, res) => {
-  await res.sendFile(join(__dirname, './public/index.html'));
+  await res.sendFile(join(__dirname, "./public/index.html"));
 });
 
 // Get all the users from the collection
@@ -71,7 +71,7 @@ app.put("/:username/:newUsername", async (req, res) => {
   const { username, newUsername } = req.params;
   let doc = await db.updateOne(
     { username },
-    { $set: { username: newUsername } }
+    { $set: { username: newUsername } },
   );
   res.send(JSON.stringify(doc, null, 2));
 });

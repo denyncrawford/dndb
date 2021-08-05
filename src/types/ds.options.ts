@@ -1,9 +1,8 @@
-interface DataStoreOptions {
-    filename: string,
-    onLoad?: () => void,
-    timeStamp?: string,
-    autoload?: boolean,
-    bufSize?: number
+export default interface DataStoreOptions {
+  filename: string;
+  onLoad?: () => void;
+  /** @deprecated */
+  timeStamp?: string;
+  autoload?: boolean;
+  bufSize?: number;
 }
-
-export default DataStoreOptions
