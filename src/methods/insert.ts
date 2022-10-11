@@ -1,6 +1,5 @@
-import { writeFile } from "../storage.ts";
-import { v4 } from "../../deps.ts";
-import type { DataObject, MaybeArray } from "../types.ts";
+import { writeFile } from "dndb/storage.ts";
+import type { DataObject, MaybeArray } from "dndb/types.ts";
 
 export default async (
   filename: string,
@@ -8,11 +7,11 @@ export default async (
 ) => {
   if (Array.isArray(data)) {
     data.forEach(async (o) => {
-      o._id = o._id || v4.generate();
+      o._id = o._id || crypto.randomUUID();
       await writeFile(filename, o);
     });
   } else {
-    data._id = data._id || v4.generate();
+    data._id = data._id || crypto.randomUUID();
     await writeFile(filename, data);
   }
   return data;
