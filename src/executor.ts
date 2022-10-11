@@ -1,4 +1,4 @@
-import type { DbResults } from "./types.ts";
+import type { DbResults } from "dndb/types.ts";
 
 export default class Executor {
   private queue: ((() => Promise<void> | void) | undefined)[] = [];

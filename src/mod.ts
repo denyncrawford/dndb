@@ -1,4 +1,7 @@
-import type { DataObject, DbResults, Mongobj, Projection } from "./types.ts";
+import { EventEmitter } from "std/node/events.ts";
+import { resolve } from "std/path/mod.ts";
+import * as fs from "std/fs/mod.ts";
+import type { DataObject, DbResults, Mongobj, Projection } from "dndb/types.ts";
 import {
   _find,
   _findOne,
@@ -7,11 +10,9 @@ import {
   _removeOne,
   _update,
   _updateOne,
-} from "./methods/mod.ts";
-import { init } from "./storage.ts";
-import type DataStoreOptions from "./types/ds.options.ts";
-import { EventEmitter, resolve } from "../deps.ts";
-import Executor from "./executor.ts";
+} from "dndb/methods/mod.ts";
+import type DataStoreOptions from "dndb/types/ds.options.ts";
+import Executor from "dndb/executor.ts";
 
 /** Represents the Datastore instance. */
 export class Datastore<Doc extends DataObject> extends EventEmitter {
@@ -37,7 +38,7 @@ export class Datastore<Doc extends DataObject> extends EventEmitter {
 
   /** Loads the database on first load and ensures that path exists. */
   loadDatabase() {
-    return init(this.filename);
+    return fs.ensureFile(this.filename);
   }
 
   /** Finds multiple matching documents. */

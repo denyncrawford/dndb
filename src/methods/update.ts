@@ -1,6 +1,7 @@
-import { matches, updater } from "../../deps.ts";
-import { ReadFileStream, WriteFileStream } from "../storage.ts";
-import type { DataObject, Mongobj } from "../types.ts";
+import { matches } from "safe-filter/index.js";
+import { update } from "mongobj";
+import { ReadFileStream, WriteFileStream } from "dndb/storage.ts";
+import type { DataObject, Mongobj } from "dndb/types.ts";
 
 export default (
   filename: string,
@@ -14,7 +15,7 @@ export default (
   return new Promise<DataObject[]>((resolve) => {
     readStream.on("document", (obj) => {
       if (matches(query, obj)) {
-        updater.update(obj, operators);
+        update(obj, operators);
         updated.push(obj);
       }
       writeStream.write(obj);

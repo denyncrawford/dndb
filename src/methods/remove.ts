@@ -1,6 +1,6 @@
-import { matches } from "../../deps.ts";
-import { ReadFileStream, WriteFileStream } from "../storage.ts";
-import type { DataObject } from "../types.ts";
+import { matches } from "safe-filter/index.js";
+import { ReadFileStream, WriteFileStream } from "dndb/storage.ts";
+import type { DataObject } from "dndb/types.ts";
 
 export default (
   filename: string,
