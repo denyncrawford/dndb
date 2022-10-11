@@ -1,4 +1,6 @@
-import Datastore from "https://deno.land/x/dndb/mod.ts";
+/*jshint esversion: 8 */
+
+import Datastore from "https://deno.land/x/dndb@0.3.3/mod.ts";
 import { opine, serveStatic } from "https://deno.land/x/opine@1.0.0/mod.ts";
 import { dirname, join } from "../deps.ts";
 const __dirname = dirname(import.meta.url);
@@ -7,14 +9,14 @@ const db = new Datastore({ filename: "./database.db", autoload: true });
 
 app.use(serveStatic(join(__dirname, "public")));
 
-app.get("/", async (req, res) => {
+app.get("/", async (_req, res) => {
   await res.sendFile(join(__dirname, "./public/index.html"));
 });
 
 // Get all the users from the collection
 
-app.get("/all", async (req, res) => {
-  let doc = await db.find({});
+app.get("/all", async (_req, res) => {
+  const doc = await db.find({});
   res.send(JSON.stringify(doc, null, 2));
 });
 
@@ -22,7 +24,7 @@ app.get("/all", async (req, res) => {
 
 app.get("/all/:match", async (req, res) => {
   const { match } = req.params;
-  let doc = await db.find({ username: match });
+  const doc = await db.find({ username: match });
   res.send(JSON.stringify(doc, null, 2));
 });
 
@@ -30,7 +32,7 @@ app.get("/all/:match", async (req, res) => {
 
 app.get("/:username", async (req, res) => {
   const { username } = req.params;
-  let doc = await db.findOne({ username }, { username: 0 });
+  const doc = await db.findOne({ username }, { username: 0 });
   res.send(JSON.stringify(doc, null, 2));
 });
 
@@ -38,7 +40,7 @@ app.get("/:username", async (req, res) => {
 
 app.post("/:username", async (req, res) => {
   const { username } = req.params;
-  let doc = await db.insert({ username, name: username });
+  const doc = await db.insert({ username, name: username });
   res.send(JSON.stringify(doc, null, 2));
 });
 
@@ -46,7 +48,7 @@ app.post("/:username", async (req, res) => {
 
 app.delete("/:username", async (req, res) => {
   const { username } = req.params;
-  let doc = await db.removeOne({ username });
+  const doc = await db.removeOne({ username });
   res.send(JSON.stringify(doc, null, 2));
 });
 
@@ -54,14 +56,14 @@ app.delete("/:username", async (req, res) => {
 
 app.delete("/all/:username", async (req, res) => {
   const { username } = req.params;
-  let doc = await db.remove({ username });
+  const doc = await db.remove({ username });
   res.send(JSON.stringify(doc, null, 2));
 });
 
 // Delete all users
 
-app.delete("/all", async (req, res) => {
-  let doc = await db.remove({});
+app.delete("/all", async (_req, res) => {
+  const doc = await db.remove({});
   res.send(JSON.stringify(doc, null, 2));
 });
 
@@ -69,7 +71,7 @@ app.delete("/all", async (req, res) => {
 
 app.put("/:username/:newUsername", async (req, res) => {
   const { username, newUsername } = req.params;
-  let doc = await db.updateOne(
+  const doc = await db.updateOne(
     { username },
     { $set: { username: newUsername } },
   );
@@ -80,7 +82,7 @@ app.put("/:username/:newUsername", async (req, res) => {
 
 app.put("/all/:username/:newUsername", async (req, res) => {
   const { username, newUsername } = req.params;
-  let doc = await db.update({ username }, { $set: { username: newUsername } });
+  const doc = await db.update({ username }, { $set: { username: newUsername } });
   res.send(JSON.stringify(doc, null, 2));
 });
 

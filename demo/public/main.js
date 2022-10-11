@@ -1,4 +1,6 @@
-const app = new Vue({
+/*jshint esversion: 8 */
+
+const _app = new Vue({
   el: "#app",
   template: `
     <div class="p-10">
@@ -40,7 +42,7 @@ const app = new Vue({
     };
   },
   async mounted() {
-    let { data } = await axios("/all");
+    const { data } = await axios("/all");
     this.lastResponse = data;
   },
   methods: {
@@ -50,85 +52,121 @@ const app = new Vue({
     async makeQuery() {
       const method = this.$refs.method.value;
       const query = this.$refs.query.value;
+
       switch (method) {
-        case "find":
+        case "find": {
           let findData;
           if (!query.length) findData = await axios("/all");
           else findData = await axios(`/all/${query}`);
+
           this.updateResponse(findData.data);
           this.success = `Fetched multiple documents matching the query: ${
             query.length ? query : "all"
           }.`;
+
           break;
-        case "findOne":
-          let { data: findOneData } = await axios(`/${query || null}`);
+        }
+          
+        case "findOne": {
+          const { data: findOneData } = await axios(`/${query || null}`);
+
           this.updateResponse(findOneData);
           this.success = `Fetched one document matching the query: ${
             query.length ? query : null
           }.`;
+          
           break;
-        case "insert":
+        }
+
+        case "insert": {
           if (!query.length) {
             return (this.error =
               "You can not insert an empty username (for this demo), please type a username.");
           }
-          let { data: insertData } = await axios.post(`/${query}`);
+
+          const { data: insertData } = await axios.post(`/${query}`);
+
           this.updateResponse(insertData);
           this.success = "New document inserted.";
+
           break;
-        case "update":
+        }
+
+        case "update": {
           if (!query.length) {
             return (this.error =
               "You cannot update an empty username, type a username and followed by a comma the new update.");
           }
-          let updateQuery = query.split(",");
+
+          const updateQuery = query.split(",");
+
           if (updateQuery.length !== 2) {
             return (this.error =
               "You must specify a update, please type a username and followed by a comma the new update.");
           }
-          let { data: updateData } = await axios.put(
+
+          const { data: updateData } = await axios.put(
             `/all/${updateQuery[0].trim()}/${updateQuery[1].trim()}`,
           );
+
           this.updateResponse(updateData);
           this.success = `All document matching ${updateQuery[0]} updated to ${
             updateQuery[1]
           }.`;
+          
           break;
-        case "updateOne":
+        }
+
+        case "updateOne": {
           if (!query.length) {
             return (this.error =
               "You can not update an empty username, please type a username and followed by a comma the new update.");
           }
-          let updateOneQuery = query.split(",");
+
+          const updateOneQuery = query.split(",");
+
           if (updateOneQuery.length !== 2) {
             return (this.error =
               "You must specify a update, please type a username and followed by a comma the new update.");
           }
-          let { data: updateOneData } = await axios.put(
+
+          const { data: updateOneData } = await axios.put(
             `/${updateOneQuery[0].trim()}/${updateOneQuery[1].trim()}`,
           );
+
           this.updateResponse(updateOneData);
           this.success = `The first document matching ${
             updateOneQuery[0]
           } updated to ${updateOneQuery[1]}.`;
+          
           break;
-        case "remove":
+        }
+
+        case "remove": {
           let removedData;
           if (!query.length) removedData = await axios.delete("/all");
           else removedData = await axios.delete(`/all/${query}`);
+          
           this.updateResponse(removedData.data);
           this.success = `Removed multiple documents matching the query: ${
             query.length ? query : "all"
           }.`;
+
           break;
-        case "removeOne":
-          let { data: removeOneData } = await axios.delete(`/${query}`);
+        }
+
+        case "removeOne": {
+          const { data: removeOneData } = await axios.delete(`/${query}`);
+          
           this.updateResponse(removeOneData);
-          this.success =
-            `Removed first documents matching the query: ${query}.`;
+          this.success = `Removed first documents matching the query: ${query}.`;
+          
           break;
-        default:
+        }
+        
+        default: {
           break;
+        }
       }
     },
   },
