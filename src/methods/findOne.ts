@@ -1,6 +1,7 @@
-import { matches, project } from "../../deps.ts";
-import { ReadFileStream } from "../storage.ts";
-import type { DataObject, Projection } from "../types.ts";
+import { default as project } from "mongo-project.node/bundle.js";
+import { matches } from "safe-filter/index.js";
+import { ReadFileStream } from "dndb/storage.ts";
+import type { DataObject, Projection } from "dndb/types.ts";
 
 export default (
   filename: string,
