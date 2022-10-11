@@ -1,0 +1,7 @@
+{
+  "importMap": "./import_map.json",
+  "tasks": {
+    "lint": "deno lint --unstable --ignore=test,demo",
+    "test": "deno test --unstable --allow-read=. --allow-write=db.db,db.db.updated"
+  }
+}

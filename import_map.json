@@ -1,0 +1,9 @@
+{
+  "imports": {
+    "dndb/": "./src/",
+    "std/": "https://deno.land/std@0.159.0/",
+    "mongobj": "https://cdn.skypack.dev/mongobj@1.0.9",
+    "safe-filter/": "https://raw.githubusercontent.com/denyncrawford/safe-filter/9166edde2be3dbbf519af3ac0ac33af43e7b619b/dist/",
+    "mongo-project.node/": "https://raw.githubusercontent.com/denyncrawford/mongo-project.node/35264536b10defe47bfce6d4b5693776f05b39e5/dist/"
+  }
+}
