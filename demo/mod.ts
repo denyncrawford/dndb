@@ -1,8 +1,8 @@
 /*jshint esversion: 8 */
 
-import Datastore from "https://deno.land/x/dndb@0.3.3/mod.ts";
+import { Datastore } from "dndb/mod.ts";
 import { opine, serveStatic } from "https://deno.land/x/opine@1.0.0/mod.ts";
-import { dirname, join } from "../deps.ts";
+import { dirname, join } from "std/path/mod.ts";
 const __dirname = dirname(import.meta.url);
 const app = opine();
 const db = new Datastore({ filename: "./database.db", autoload: true });
@@ -82,7 +82,9 @@ app.put("/:username/:newUsername", async (req, res) => {
 
 app.put("/all/:username/:newUsername", async (req, res) => {
   const { username, newUsername } = req.params;
-  const doc = await db.update({ username }, { $set: { username: newUsername } });
+  const doc = await db.update({ username }, {
+    $set: { username: newUsername },
+  });
   res.send(JSON.stringify(doc, null, 2));
 });
 
