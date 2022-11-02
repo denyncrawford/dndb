@@ -2,6 +2,8 @@
   "importMap": "./import_map.json",
   "tasks": {
     "lint": "deno lint --unstable --ignore=test,demo",
-    "test": "deno test --unstable --allow-read=. --allow-write=db.db,db.db.updated"
+    "test": "deno test --unstable --allow-read=. --allow-write=db.db,db.db.updated",
+    "serve": "cd build || deno run --allow-read --allow-write --allow-net --unstable --config ../deno.json ../src/executable.ts",
+    "compile": "deno compile --allow-read --allow-write --allow-net --unstable --config deno.json --output build/DNDB ../src/executable.ts"
   }
 }
